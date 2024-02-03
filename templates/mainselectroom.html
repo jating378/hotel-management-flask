@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Room</title>
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: rgb(22, 22, 112);
+        }
+
+        header {
+            background-color: navy;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-list {
+            flex: 1;
+        }
+
+        .room-cart {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        .room-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .room-details {
+            flex: 1;
+        }
+
+        .room-image img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        .room-select button {
+            background-color: #4caf50;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .room-select button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .room-select button:hover:enabled {
+            background-color: #45a049;
+        }
+
+        .room-cart-content {
+            margin-top: 10px;
+        }
+
+        .room-cart-item {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .total-guests {
+            margin-top: 20px;
+        }
+
+        .total-amount {
+            margin-top: 10px;
+        }
+
+        .remove-room-button {
+            background-color: #f44336;
+            color: white;
+            padding: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .remove-room-button:hover {
+            background-color: #d32f2f;
+        }
+
+        .next-button {
+            margin-top: 10px;
+            background-color: #4caf50;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .next-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Select Room</h1>
+    <div class="total-guests" id="total-guests">
+        Total Guests: {{ guest_count }}
+    </div>
+</header>
+
+<section>
+    <div class="room-list">
+        <h2>Available Rooms</h2>
+
+        {% for room in rooms %}
+        <div class="room-card" id="room-{{ room.room_id }}">
+            <!-- Room details -->
+            <div class="room-details">
+                <h3>{{ room.room_name }}</h3>
+                <p>Price: ${{ room.price }}</p>
+                <p>Availability: {% if room.availability %}Available{% else %}Not Available{% endif %}</p>
+            </div>
+
+            <!-- Room image -->
+            <div class="room-image">
+                <img src="{{ url_for('static', filename=room.image_path) }}" alt="{{ room.room_name }} Image">
+            </div>
+
+            <!-- Room selection button -->
+            <div class="room-select">
+                <button onclick="selectRoom('{{ room.room_id }}', '{{ room.room_name }}', {{ room.price }}, {{ room.available_count }})"
+                        {% if not room.availability or room.available_count == 0 %}disabled{% endif %}>
+                    Select Room
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="room-cart" id="room-cart">
+        <h2>Your Selected Rooms</h2>
+        <div class="room-cart-content" id="room-cart-content">
+            <!-- Selected room details will be displayed here -->
+        </div>
+
+        <div id="total-amount" class="total-amount">
+            Total Amount: $0.00
+        </div>
+    </div>
+
+    <div id="booking-form" class="booking-form">
+        <form id="roomBookingForm" method="post" action="{{ url_for('overview') }}">
+            <!-- Add hidden input fields for total amount and selected room names -->
+            <input type="hidden" id="total-amount-input" name="total_amount" value="">
+            <input type="hidden" id="selected-rooms-input" name="selected_rooms" value="">
+
+            <!-- Submit button -->
+            <button type="button" class="next-button" id="next-button" onclick="submitForm()">Next</button>
+        </form>
+    </div>
+</section>
+<script>
+    var guestCount = {{ guest_count }};
+    var selectedRooms = [];
+
+    function updateGuestCountDisplay() {
+        document.getElementById('total-guests').textContent = 'Total Guests: ' + guestCount;
+    }
+
+    function updateTotalAmount() {
+        var totalAmount = selectedRooms.reduce((total, room) => total + room.price * room.count, 0);
+        document.getElementById('total-amount').textContent = 'Total Amount: $' + totalAmount.toFixed(2);
+        return totalAmount;  // Return the raw total amount
+    }
+
+    function selectRoom(roomId, roomName, roomPrice, availableCount) {
+        var existingRoom = selectedRooms.find(room => room.id === roomId);
+
+        if (existingRoom) {
+            existingRoom.count += 1;
+        } else {
+            selectedRooms.push({ id: roomId, name: roomName, price: roomPrice, count: 1, availableCount: availableCount });
+        }
+
+        updateTotalAmount();
+        updateRoomCart();
+        updateNextButtonVisibility();
+        updateHiddenInputs(); // Add this line to update selected rooms input
+    }
+
+    function removeRoom(index) {
+        selectedRooms[index].count -= 1;
+
+        if (selectedRooms[index].count === 0) {
+            selectedRooms.splice(index, 1);
+        }
+
+        updateTotalAmount();
+        updateRoomCart();
+        updateNextButtonVisibility();
+        updateHiddenInputs(); // Add this line to update selected rooms input
+    }
+
+    function updateRoomCart() {
+        var roomCartContent = document.getElementById('room-cart-content');
+        roomCartContent.innerHTML = '';
+
+        selectedRooms.forEach((room, index) => {
+            var roomItem = document.createElement('div');
+            roomItem.className = 'room-cart-item';
+            roomItem.textContent = `${room.name} x${room.count}`;
+
+            var removeButton = document.createElement('button');
+            removeButton.className = 'remove-room-button';
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function () {
+                removeRoom(index);
+            };
+
+            roomItem.appendChild(removeButton);
+            roomCartContent.appendChild(roomItem);
+        });
+    }
+
+    function updateNextButtonVisibility() {
+        var nextButton = document.getElementById('next-button');
+        nextButton.style.display = selectedRooms.length > 0 ? 'block' : 'none';
+    }
+
+    // Function to update the hidden input fields before submitting the form
+    function updateHiddenInputs() {
+        document.getElementById('total-amount-input').value = updateTotalAmount();
+        document.getElementById('selected-rooms-input').value = JSON.stringify(selectedRooms);
+    }
+
+   function submitForm() {
+    console.log('Submitting the form...');  // Debug statement
+    // Add total amount to the form data
+    document.getElementById('total-amount-input').value = updateTotalAmount().toFixed(2);
+    document.getElementById('selected-rooms-input').value = JSON.stringify(selectedRooms);
+    document.getElementById('roomBookingForm').submit();
+}
+
+
+    window.onload = function () {
+        updateGuestCountDisplay();
+        updateTotalAmount();
+        updateRoomCart();
+        updateNextButtonVisibility();
+        console.log('Page loaded.');  // Debug statement
+    };
+</script>
+
+
+
+</body>
+
+</html>

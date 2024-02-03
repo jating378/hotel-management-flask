@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stay Safe- Services</title>
+</head>
+<style>
+    :root {
+        font-size: 16px;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    header {
+        background-color: rgb(22, 22, 112);
+        color: white;
+        text-align: left;
+        padding: 50px;
+    }
+
+    .hotel-logo a {
+        text-decoration: none; /* Remove default link underline */
+        color: white;
+    }
+
+    .hotel-logo {
+        position: absolute;
+        top: 15px;
+        left: 70px;
+    }
+
+    .hotel-logo img {
+        width: 50px;
+        height: auto;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        background-color: #fafafa;
+        font-size: 18px;
+    }
+
+    h4 {
+        font-style: normal;
+        font-weight: 600;
+        line-height: 162.69%;
+        color: #241e09;
+        padding: 5px 0;
+        font-size: 24px;
+    }
+
+    .container {
+        max-width: 1050px;
+        margin: 0 auto;
+        padding: 1.5rem 0.5rem;
+    }
+
+
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col {
+        padding: 10px;
+        flex-wrap: nowrap;
+    }
+
+
+
+    .center-lg {
+        justify-content: center;
+    }
+
+    .page-header-container {
+        margin-bottom: 70px;
+    }
+
+    .page-header {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    hr {
+        border-top: 1.5px solid rgb(36, 33, 222);
+        width: 104px;
+        margin: 0.5rem auto 1rem;
+    }
+
+    .page-sub-header {
+        text-align: center;
+        letter-spacing: 0.01em;
+        font-weight: 300;
+        color: #3b331a;
+    }
+
+    .upper-section {
+        padding: 0 0 80px;
+    }
+
+    .right-title {
+        font-size: 165%;
+        font-weight: 600;
+        margin: 25px 0 15px;
+        line-height: 45px;
+        letter-spacing: 0.01em;
+    }
+
+    .right-sub-title {
+        font-size: 74%;
+        color: #3b331a;
+        font-weight: 300;
+        margin-bottom: 20px;
+    }
+
+    .facilities-list {
+        list-style: none;
+        margin-bottom: 30px;
+    }
+
+    .facilities-list li {
+        margin: 12px 0;
+    }
+
+    .list-icon {
+        height: 17px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .list-text {
+        display: inline-block;
+        font-size: 17px;
+    }
+
+    .btn {
+        border-radius: 3px;
+        border: 1px solid rgb(36, 33, 222);
+        text-transform: uppercase;
+        font-size: 55%;
+        padding: 10px 18px;
+        font-weight: 400;
+        text-decoration: none;
+        transition: all 0.3s;
+        margin-right: 10px;
+    }
+
+    .btn-fill {
+        background-color: rgb(36, 33, 222);
+        color: #fff;
+    }
+
+    .btn-fill:hover,
+    .btn-fill:active {
+        background-color: rgb(36, 33, 222);
+        border: 1px solid rgb(36, 33, 222);
+    }
+
+    .btn-ghost {
+        color: #d4af37;
+        background-color: #fff;
+    }
+
+    .btn-ghost:hover,
+    .btn-ghost:active {
+        background-color: rgb(36, 33, 222);
+        color: #fff;
+    }
+
+    .btn-large {
+        font-size: 65%;
+        padding: 9px 22px;
+    }
+
+    p.imggrid {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 300;
+        margin-bottom: 7px;
+        line-height: 1.5;
+        color: #241e09;
+        max-width: 400px;
+    }
+
+    .containera {
+        max-width: 100rem;
+        margin: 0 auto;
+        /* padding: 0 2rem 2rem; */
+        padding-bottom: 20px;
+    }
+
+    .up h1 {
+        text-align: center;
+        font-size: 20px;
+        padding-bottom: 30px;
+        position: relative;
+    }
+
+    .up h1::after {
+        display: block;
+        height: 1px;
+        background-color: rgb(36, 33, 222)7;
+        content: '';
+        width: 90px;
+        margin: 5px auto 10px;
+    }
+
+    .up p {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 23px;
+        text-align: center;
+        letter-spacing: 0.01em;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        /* margin: 0 auto; */
+        justify-content: center;
+    }
+
+    .gallery-image {
+        display: block;
+        max-width: 100%;
+
+        object-fit: cover;
+    }
+
+    @supports (display: grid) {
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+
+        .gallery,
+        .gallery-item {
+            margin: 0;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+
+        h3.right-title {
+            font-size: 20px;
+        }
+
+
+        p.imggrid,
+        p.right-title-content,
+        p.list-text {
+            font-size: 15px;
+            width: 18em;
+        }
+
+        p.right-title-content {
+            width: 19em;
+        }
+
+        .container {
+            margin: auto;
+            justify-content: center;
+        }
+    }
+
+    @media (min-width: 700px) {
+
+        .image-col {
+            margin-right: 5%;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        * {
+            font-size: 20px;
+        }
+    }
+
+
+    @media (min-width: 1050px) {
+        .gallery {
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+        }
+    }
+
+            footer {
+            background-color: rgb(22, 22, 112);
+            color: #fff;
+            text-align: center;
+            padding: 2em 0;
+        }
+
+        .footer-sections {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .footer-section-left {
+            text-align: left;
+        }
+
+        .footer-section-center {
+            text-align: center;
+        }
+
+        .footer-section-right {
+            text-align: right;
+        }
+
+        h3 {
+            color: #f5a623;
+        }
+
+        h5 {
+            color: #000000;
+        }
+
+        p {
+            margin: 0.5em 0;
+        }
+
+        strong {
+            color: #f5a623;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #f5a623;
+        }
+
+        .footer-social ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-social li {
+            margin: 0 10px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: #f5a623;
+        }
+
+        .footer-copyright {
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+
+        .back-to-top-btn {
+            display: none;
+            font-size: 0.8em;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+</style>
+
+<body>
+
+
+
+    <header class="text">
+        <a href="hotel.html" class="hotel-logo">
+            <img src="./Assets/images/Hotel-logo.jpeg" alt="Logo"></a>
+
+    </header>
+
+    <main>
+
+        <div class="container">
+
+            <div class="page-header-container">
+                <h2 class="page-header">Services</h2>
+                <hr />
+                <p class="page-sub-header">
+                    Get the most of our hotel facilities. Enjoy the state of <br> the art facilities in our hotel
+                </p>
+            </div>
+
+            <section class="upper-section">
+                <div class="row center-lg">
+                    <div class="col image-col right-marg">
+                        <div class="large-image-container">
+                            <img src="img/telephone.webp" alt="room-image-large" class="large-image">
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <h5 class="right-title">Access to 24hr Digital <br> Telephone Services</h5>
+                        <p>
+                            With our feature rich Digital telephone services, you <br> will have the flexibility you
+                            have always wanted with <br> voice communication from your home or business.
+                        </p>
+                        <br>
+                        <h5>More Details</h5>
+                        <ul class="facilities-list">
+                            <li>
+                                <div>
+                                    <img src="img/check-square.svg" alt="tick" class="list-icon">
+                                    <p class="list-text">Unlimited Long Distance</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <img src="img/check-square.svg" alt="tick" class="list-icon">
+                                    <p class="list-text">Caller ID</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <img src="img/check-square.svg" alt="tick" class="list-icon">
+                                    <p class="list-text">Caller Waiting</p>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </section>
+            <div class="up">
+                <h2 class="page-header">Other Services</h2>
+                <hr />
+            </div>
+
+            <div class="container">
+                <div class="containera">
+
+                    <div class="gallery">
+                        <!-- display the services from db here -->
+                    </div>
+
+                </div>
+            </div>
+
+    </main>
+
+
+ <footer>
+            <div class="container">
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Moonlight Manor</p>
+                    <p>123 Luxury Street, Heidelberg</p>
+                    <p>Phone: +49-123-456-7890</p>
+                    <p>Email: MoonlightManorhotel@gmail.com</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="hotel.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="mybookings.html">My Bookings</a></li>
+                        <li><a href="room_details.html">Rooms</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+                        <li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="footer-copyright">&copy; 2023 Moonlight Manor. All rights reserved.</p>
+ </footer>
+
+        <button class="back-to-top-btn" onclick="scrollToTop()">Back to Top</button>
+
+<script>
+    // Show or hide back to top button based on scroll position
+    const backToTopBtn = document.querySelector('.back-to-top-btn');
+
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 500) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+
+    // Function to scroll smoothly to the top
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    function fetchServices() {
+        fetch('http://localhost:8000/services')  // Replace with your actual backend URL
+            .then(response => response.json())
+            .then(services => {
+                updateServicesDisplay(services);
+            })
+            .catch(error => console.error('Error fetching services:', error));
+    }
+
+    function getImageForService(description) {
+        // Mapping of service descriptions to image filenames
+        const imageMap = {
+            "Swimming Pool": "swimming_pool.webp",
+            "Sauna":"sauna.webp",
+            "Salon": "saloon.jpg",
+            "Fitness centre": "gym.webp",
+            "Spa": "spa.jpg",
+            // Add more mappings as needed
+        };
+
+        return imageMap[description] || "default.jpg";  // Fallback to a default image if not found
+    }
+
+    function updateServicesDisplay(services) {
+        const gallery = document.querySelector('.gallery');
+        gallery.innerHTML = '';  // Clear existing content
+
+        services.forEach(service => {
+            const imageUrl = `img/${getImageForService(service.service_name)}`;
+            const serviceItem = document.createElement('div');
+            serviceItem.className = 'gallery-item';
+            serviceItem.innerHTML = `
+                <img class="gallery-image" src="${imageUrl}" alt="${service.service_name}">
+                <h4>${service.service_name}</h4>
+                <p class="imggrid">${service.description}</p>
+                <p class="list-text">Price: ${service.price}</p>
+            `;
+            gallery.appendChild(serviceItem);
+        });
+    }
+
+    window.onload = fetchServices;
+
+
+</script>
+
+
+</body>
+</html>

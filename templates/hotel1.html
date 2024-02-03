@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majestic Hotel</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+    <div class="hotel-logo">
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='images/hotel-logo.jpeg') }}" alt="Hotel Logo">
+        </a>
+    </div>
+
+    <div class="navbar">
+        <ul>
+    <li><a href="{{ url_for('register') }}">Register</a></li>
+    <li><a href="{{ url_for('my_bookings') }}">My Bookings</a></li>
+    <li><a href="{{ url_for('booking') }}">Booking</a></li>
+
+   {% if current_user.is_authenticated %}
+    <li><a href="{{ url_for('logout') }}">Sign Out</a></li>
+    {% if current_user.is_admin %}
+        <li><a href="{{ url_for('admin_dashboard') }}">Admin Dashboard (ID: {{ current_user.id }})</a></li>
+    {% endif %}
+{% else %}
+    <li><a href="{{ url_for('login') }}">Sign In</a></li>
+{% endif %}
+
+</ul>
+</div>
+
+    </ul>
+</div>
+
+</header>
+
+<div class="hotel-photo">
+    <img src="{{ url_for('static', filename='images/entrance.jpg') }}" alt="Hotel Photo">
+    <div class="hotel-title">Majestic Hotel</div>
+</div>
+
+<div class="room-section">
+    <div class="room">
+        <img src="{{ url_for('static', filename='images/single.jpg') }}" alt="Single Bedroom">
+        <div class="description">
+            <h1 class="room-title">Single's Heaven</h1>
+            <p>Our single bedroom invites the peaceful atmosphere of the woods inside with its beautiful view of the forest. A comfortable retreat is created by the exquisite furnishings that blend in with the lush canopy outside. It is the ideal retreat for solo travelers looking for inspiration and tranquility since you can fully immerse yourself in the calming sounds of nature and have all the comforts of home at your fingertips.</p>
+        </div>
+    </div>
+
+    <div class="room">
+        <div class="description">
+            <h1 class="room-title">Queen's Regal Repose</h1>
+            <p>The Queen's Bedroom is a luxurious retreat boasting majestic views of the forest's emerald expanse. Elegant furnishings fit for royalty, rich textures, and an elegant queen-sized bed make this room an opulent escape. Wake up to the forest's enchanting chorus, in a room that celebrates the essence of nobility and comfort.</p>
+        </div>
+        <img src="{{ url_for('static', filename='images/queen.jpg') }}" alt="Queen's Bedroom">
+    </div>
+
+    <div class="room">
+        <img src="{{ url_for('static', filename='images/twin.jpg') }}" alt="Twin's Bedroom">
+        <div class="description">
+            <h1 class="room-title">Coastal Twinscape</h1>
+            <p>With its panoramic view of the pristine beach, the double bedroom is a harmonious blend of soft sand and blue waves. Two comfortable beds ensure a good night's sleep as the light breeze from the sea lingers through the spacious room. With its stunning sunrises and the soothing sound of the ocean tide, this room is the perfect place for friends and family to get together.</p>
+        </div>
+    </div>
+
+    <div class="room">
+        <div class="description">
+            <h1 class="room-title">King's Comfort</h1>
+            <p>Commanding a sweeping beachfront vista, the King's Bedroom is the epitome of grandeur and scale. A king-sized bed anchors the spacious chamber, where the horizon meets the sky. The decor reflects the vastness and beauty of the ocean, offering guests a stay that is as regal as it is relaxing, with every wave bringing a sense of majestic tranquility.</p>
+        </div>
+        <img src="{{ url_for('static', filename='images/king.jpg') }}" alt="King's Bedroom">
+    </div>
+
+    <div class="room">
+        <img src="{{ url_for('static', filename='images/presidential.jpg') }}" alt="Presidential suite">
+        <div class="description">
+            <h1 class="room-title">The Pinnacle</h1>
+            <p>The crown jewel of the hotel, the Presidential Suite on the fifth floor, offers an unparalleled, dual view of the dense, mystic forest and the boundless, tranquil beach. This opulent suite is the pinnacle of luxury, with a palatial bed, a private lounge, and an expansive balcony. Indulge in the height of sophistication and privacy, with a 360-degree panorama that captures the essence of the hotel's exquisite locale.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Majestic Hotel</p>
+            <p>123 Luxury Street, Heidelberg</p>
+            <p>Phone: +49-123-456-7890</p>
+            <p>Email: info@majestichotel.com</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+
+                <li><a href="{{ url_for('booking') }}">My Bookings</a></li>
+
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Connect With Us</h3>
+            <ul>
+                <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+                <li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
+                <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <p class="footer-copyright">&copy; 2023 Majestic Hotel. All rights reserved.</p>
+</footer>
+
+<button class="back-to-top-btn" onclick="scrollToTop()">Back to Top</button>
+
+<script>
+    const backToTopBtn = document.querySelector('.back-to-top-btn');
+
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 500) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    window.onload = function () {
+        const signInButton = document.querySelector('.navbar a[href="{{ url_for('login') }}"]');
+
+        const userToken = localStorage.getItem('token');
+        if (userToken) {
+            // User is logged in
+            signInButton.textContent = 'Sign Out';
+            signInButton.href = '#'; // Remove the link to login page
+            signInButton.addEventListener('click', function () {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.href = '{{ url_for('home') }}';
+            });
+        } else {
+            // User is not logged in
+        }
+    }
+
+     window.onload = function () {
+        const adminDashboardBtn = document.getElementById('admin-dashboard-btn');
+
+        // Check if the user is authenticated and is an admin
+        if ({{ current_user.is_authenticated }} && {{ current_user.is_admin }}) {
+            adminDashboardBtn.style.display = 'list-item';
+        } else {
+            adminDashboardBtn.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+
+</html>

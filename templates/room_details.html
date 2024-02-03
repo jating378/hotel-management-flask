@@ -1,0 +1,328 @@
+<!-- room_details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1em;
+        }
+
+        header {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 0px;
+        }
+
+        .text {
+            font-size: 40px;
+        }
+
+        .hotel-logo a {
+            text-decoration: none; /* Remove default link underline */
+            color: white;
+        }
+
+        .hotel-logo {
+            position: absolute;
+            top: 15px;
+            left: 70px;
+        }
+
+        .hotel-logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        section {
+            padding: 1em;
+            background-color: #fff;
+            margin-bottom: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .selected-item {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 500px; /* Adjust the width as needed */
+            height: auto; /* Adjust the height as needed */
+            margin: 1em;
+            border: 2px solid rgb(22, 22, 112);
+            padding: 1em;
+            border-radius: 8px;
+            background-color: white;
+            z-index: 999;
+        }
+
+        button {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 0.5em;
+            cursor: pointer;
+        }
+
+        .book-button {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 0.5em;
+            cursor: pointer;
+        }
+
+        .back-to-top-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: rgb(22, 22, 112);
+            color: #fff;
+            text-align: center;
+            padding: 2em 0;
+        }
+
+        .footer-sections {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        h3 {
+            color: #f5a623;
+        }
+
+        p {
+            margin: 0.5em 0;
+        }
+
+        strong {
+            color: #f5a623;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #f5a623;
+        }
+
+        .footer-social ul {
+            list-style: none;
+            padding: 0;
+
+        }
+
+
+        .footer-social a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: #f5a623;
+        }
+
+        .footer-copyright {
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <h1>Select The Room</h1>
+            <div class="hotel-logo">
+                <a href="hotel.html">
+                    <img src="./Assets/images/hotel-logo.jpeg" alt="Hotel Logo">
+                </a>
+            </div>
+    </header>
+
+    <div class="container">
+
+       <!-- Dynamic room content will be loaded here -->
+        <button class="back-to-top-btn" onclick="scrollToTop()">Back to Top</button>
+
+    </div>
+
+        <footer>
+
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Moonlight Manor</p>
+                    <p>123 Luxury Street, Heidelberg</p>
+                    <p>Phone: +49-123-456-7890</p>
+                    <p>Email: MoonlightManorhotel@gmail.com</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="hotel.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="mybookings.html">My Bookings</a></li>
+                        <li><a href="room_details.html">Rooms</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+                        <li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="footer-copyright">&copy; 2023 Moonlight Manor. All rights reserved.</p>
+        </footer>
+
+
+
+    <script>
+    const selectedRooms = [];  // Add this line to declare the selectedRooms array
+
+    function fetchRooms() {
+    fetch('http://localhost:8000/rooms')
+        .then(response => response.json())
+        .then(allRooms => {
+            const aggregatedRooms = aggregateRooms(allRooms);
+            fetchAvailableRooms(aggregatedRooms);
+        })
+        .catch(error => console.error('Error fetching rooms:', error));
+}
+
+function aggregateRooms(rooms) {
+    const roomTypes = {};
+    rooms.forEach(room => {
+        if (!roomTypes[room.room_type]) {
+            roomTypes[room.room_type] = {
+                price: room.room_price,
+                desc: room.room_desc,
+                id: room.roomid,
+                count: 0  // Initialize count to 0
+            };
+        }
+    });
+    return roomTypes;
+}
+
+function fetchAvailableRooms(aggregatedRooms) {
+    fetch('http://localhost:8000/rooms/available/',{
+        headers:{
+            'Cache-Control': 'no-cache'
+        }
+    })
+        .then(response => response.json())
+        .then(availableRooms => {
+            availableRooms.forEach(room => {
+                if (aggregatedRooms[room.room_type]) {
+                    aggregatedRooms[room.room_type].count++;
+                }
+            });
+            displayRooms(aggregatedRooms);
+        })
+        .catch(error => console.error('Error fetching available rooms:', error));
+}
+
+function displayRooms(aggregatedRooms) {
+    const container = document.querySelector('.container');
+    container.innerHTML = '';  // Clear existing content
+
+    Object.keys(aggregatedRooms).forEach(roomType => {
+        const room = aggregatedRooms[roomType];
+        const section = document.createElement('section');
+        section.innerHTML = `
+            <img src="Assets/images/${getImageForRoomType(roomType)}" alt="${roomType}">
+            <h2>${roomType}</h2>
+            <p>Price: $${room.price} per night</p>
+            <p>${room.desc}</p>
+            <p>Available Rooms: ${room.count}</p>
+            <button onclick="selectRoom(${room.id}, ${room.price})">Select</button>
+        `;
+        container.appendChild(section);
+    });
+}
+function selectRoom(roomid, roomPrice) {
+    sessionStorage.setItem('selectedRoomID', roomid);
+    sessionStorage.setItem('selectedRoomPrice', roomPrice);
+    window.location.href = 'booking.html';
+}
+
+function getImageForRoomType(roomType) {
+    const imageMap = {
+        "Single bedroom": "single.jpg",
+        "Queens bedroom": "queen.jpg",
+        "Twin bedroom": "twin.jpg",
+        "Kings bedroom": "king.jpg",
+        "Presidential suite": "presidential.jpg"
+    };
+    return imageMap[roomType] || 'default.jpg';
+}
+        window.onload = fetchRooms;
+
+
+    </script>
+
+</body>
+</html>

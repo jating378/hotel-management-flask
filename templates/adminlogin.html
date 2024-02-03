@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: rgb(22, 22, 112);
+        }
+
+        header {
+            background-color:rgb(22, 22, 112);
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        .logo img {
+            max-width: 40px; /* Adjust the max-width as needed */
+            height: auto;
+            margin-right: 1500px; /* Adjust the margin as needed */
+        }
+
+        section {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-color: rgb(22, 22, 112);
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="hotel.html">
+                <img src="./Assets/images/hotel-logo.jpeg" alt="Hotel Logo">
+            </a>
+        </div>
+        <h1>Hotel Login Admin</h1>
+    </header>
+
+    <section>
+        <h2>Welcome Admin!</h2>
+        <form id="validationForm">
+            <label for="email">Email: </label>
+            <input type="text" id="email" name="email" oninput="validateEmail()" required>
+            <p id="emailResult"></p>
+        
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" required>
+            <p id="passwordResult"></p>
+            <button type="button" onclick="loginUser()">Login</button>
+        </form>
+
+        <p>Login as User? <a href="login.html">Click here</a>.</p>
+
+        <script>
+            function validateEmail() {
+                var emailInput = document.getElementById('email');
+                var email = emailInput.value;
+
+                // Validate email using a regular expression pattern
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (emailPattern.test(email)) {
+                    document.getElementById('emailResult').innerHTML = 'Valid email address.';
+                } else {
+                    document.getElementById('emailResult').innerHTML = 'Please enter a valid email address.';
+                }
+            }
+
+            // function validatePassword() {
+            //     var passwordInput = document.getElementById('password');
+            //     var password = passwordInput.value;
+
+            //     // Validate password - At least 8 characters, including at least one uppercase letter, one lowercase letter, and one digit
+            //     var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+            //     if (passwordPattern.test(password)) {
+            //         document.getElementById('passwordResult').innerHTML = 'Valid password.';
+            //     } else {
+            //         document.getElementById('passwordResult').innerHTML = 'Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one digit.';
+            //     }
+            // }
+
+            window.addEventListener('scroll', function () {
+                const footer = document.querySelector('footer');
+                const scrollHeight = window.scrollY + window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+
+                if (scrollHeight >= documentHeight) {
+                    footer.style.display = 'block';
+                } else {
+                    footer.style.display = 'none';
+                }
+            });
+
+            function loginUser() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        // Create FormData object for sending login credentials
+        var formData = new FormData();
+        formData.append('username', email);
+        formData.append('password', password);
+
+        // Send a POST request to the admin login endpoint
+        fetch('http://localhost:8000/auth/admin/login', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle login success
+            console.log('Admin login successful:', data);
+            localStorage.setItem('admin_token', data.access_token);
+            window.location.href = '/admin.html';
+        })
+        .catch(error => {
+            console.error('Error during admin login:', error);
+            // Handle login error (e.g., show message to user)
+        });
+    }
+
+        </script>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Moonlight Manor. All rights reserved.</p>
+    </footer>
+
+
+</body>
+
+</html>

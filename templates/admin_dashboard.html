@@ -1,0 +1,127 @@
+<!-- admin_dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- Add your styles here -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        #sidebar {
+            width: 200px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #fff;
+        }
+
+        #content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 6px 12px;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        .action-buttons {
+            display: flex;
+        }
+
+        .action-buttons a {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <a href="{{ url_for('admin_dashboard') }}">Bookings</a>
+        <a href="{{ url_for('room_availability') }}">Room Availability</a>
+        <a href="{{ url_for('user_dashboard') }}">User Management</a>
+    </div>
+
+    <div id="content">
+        <h1>Welcome to the Admin Dashboard</h1>
+
+        <table>
+            <tr>
+                <th>Booking ID</th>
+                <th>User ID</th>
+                <th>Check-in Date</th>
+                <th>Check-out Date</th>
+                <th>Number of Guests</th>
+                <th>Total Amount</th>
+                <th>Payment Method</th>
+                <th>Booked Rooms</th>
+                <th>Actions</th>
+            </tr>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.booking_id }}</td>
+                    <td>{{ booking.user_id }}</td>
+                    <td>{{ booking.checkin_date }}</td>
+                    <td>{{ booking.checkout_date }}</td>
+                    <td>{{ booking.num_of_guests }}</td>
+                    <td>{{ booking.total_amount }}</td>
+                    <td>{{ booking.payment_method }}</td>
+                    <td>{{ booking.booked_rooms|safe }}</td>
+                    <td class="action-buttons">
+
+                        <a href="{{ url_for('delete_booking', booking_id=booking.booking_id) }}">Delete</a>
+                        <a href="{{ url_for('edit_booking', booking_id=booking.booking_id) }}">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="{{ url_for('home') }}">Go Back to Home</a>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Booking Website</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+         header {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            text-align: left;
+            padding: 10px;
+        }
+
+        .hotel-logo a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .hotel-logo {
+            position: absolute;
+            top: 15px;
+            left: 70px;
+        }
+
+        .hotel-logo img {
+            width: 50px;
+            height: auto;
+        }
+
+
+        footer {
+            background-color: rgb(22, 22, 112);
+            color: #fff;
+            text-align: center;
+            padding: 2em 0;
+        }
+
+        .footer-sections {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .footer-section-left {
+            text-align: left;
+        }
+
+        .footer-section-center {
+            text-align: center;
+        }
+
+        .footer-section-right {
+            text-align: right;
+        }
+
+        h3 {
+            color: #f5a623;
+        }
+
+        p {
+            margin: 0.5em 0;
+        }
+
+        strong {
+            color: #f5a623;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #f5a623;
+        }
+
+        .footer-social ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-social li {
+            margin: 0 10px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: #f5a623;
+        }
+
+        .footer-copyright {
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+
+        .back-to-top-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<header>
+    <div class="hotel-logo">
+        <a href="hotel.html">
+            <img src="./Assets/images/hotel-logo.jpeg" alt="Hotel Logo">
+        </a>
+    </div>
+
+
+    <div class="navbar">
+
+        <ul>
+            <li><a href="mybookings.html">Bookings</a></li>
+            <li><a href="room_details.html">Rooms</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="login.html">Sign In</a></li>
+        </ul>
+    </div>
+
+</header>
+
+<div class="hotel-photo">
+        <img src="./Assets/images/entrance.jpg" alt="Hotel Photo">
+        <div class="hotel-title">Moonlight Manor</div>
+    </div>
+
+    <div class="room-section">
+        <div class="room left">
+            <img src="./Assets/images/single.jpg" alt="Single Bedroom">
+            <div class="description">
+                <h1 class="room-title">Single's Heaven</h1>
+                <p>Our single bedroom invites the peaceful atmosphere of the woods inside with its beautiful view of the forest. A comfortable retreat is created by the exquisite furnishings that blend in with the lush canopy outside. It is the ideal retreat for solo travellers looking for inspiration and tranquilly since you can fully immerse yourself in the calming sounds of nature and have all the comforts of home at your fingertips.</p>
+            </div>
+        </div>
+
+
+        <div class="room right">
+            <div class="description">
+                <h1 class="room-title">Queen's Regal Repose</h1>
+                <p>The Queen's Bedroom is a luxurious retreat boasting majestic views of the forest's emerald expanse. Elegant furnishings fit for royalty, rich textures, and an elegant queen-sized bed make this room an opulent escape. Wake up to the forest's enchanting chorus, in a room that celebrates the essence of nobility and comfort.</p>
+            </div>
+            <img src="./Assets/images/queen.jpg" alt="Queen's Bedroom">
+        </div>
+
+        <div class="room left">
+            <div class="description">
+                <h1 class="room-title">Coastal Twinscape</h1>
+                <p>With its panoramic view of the pristine beach, the double bedroom is a harmonious blend of soft sand and blue waves. Two comfortable beds ensure a good night's sleep as the light breeze from the sea lingers through the spacious room. With its stunning sunrises and the soothing sound of the ocean tide, this room is the perfect place for friends and family to get together.</p>
+            </div>
+            <img src="./Assets/images/twin.jpg" alt="Twin's Bedroom">
+        </div>
+
+        <div class="room right">
+            <div class="description">
+                <h1 class="room-title">King's Comfort</h1>
+                <p>Commanding a sweeping beachfront vista, the King's Bedroom is the epitome of grandeur and scale. A king-sized bed anchors the spacious chamber, where the horizon meets the sky. The decor reflects the vastness and beauty of the ocean, offering guests a stay that is as regal as it is relaxing, with every wave bringing a sense of majestic tranquility.</p>
+            </div>
+            <img src="./Assets/images/king.jpg" alt="King's Bedroom">
+        </div>
+
+        <div class="room left">
+            <div class="description">
+                <h1 class="room-title">The Pinnacle</h1>
+                <p>The crown jewel of the hotel, the Presidential Suite on the fifth floor, offers an unparalleled, dual view of the dense, mystic forest and the boundless, tranquil beach. This opulent suite is the pinnacle of luxury, with a palatial bed, a private lounge, and an expansive balcony. Indulge in the height of sophistication and privacy, with a 360-degree panorama that captures the essence of the hotel's exquisite locale.</p>
+            </div>
+            <img src="./Assets/images/presidential.jpg" alt="Presidential suite">
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Moonlight Manor</p>
+                    <p>123 Luxury Street, Heidelberg</p>
+                    <p>Phone: +49-123-456-7890</p>
+                    <p>Email: MoonlightManorhotel@gmail.com</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="hotel.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="mybookings.html">My Bookings</a></li>
+                        <li><a href="room_details.html">Rooms</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+                        <li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+                    </ul>
+                </div>
+        </div>
+
+            <p class="footer-copyright">&copy; 2023 Moonlight Manor. All rights reserved.</p>
+        </footer>
+
+        <button class="back-to-top-btn" onclick="scrollToTop()">Back to Top</button>
+
+    </div>
+
+<script>
+    const backToTopBtn = document.querySelector('.back-to-top-btn');
+
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 500) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    window.onload = function() {
+        const signInButton = document.querySelector('.navbar a[href="login.html"]');
+
+        const userToken = localStorage.getItem('token');
+        if (userToken) {
+            // User is logged in
+            signInButton.textContent = 'Sign Out';
+            signInButton.href = '#'; // Remove the link to login page
+            signInButton.addEventListener('click', function() {
+
+                localStorage.clear();
+                sessionStorage.clear();
+
+                window.location.href = 'hotel.html';
+            });
+        } else {
+
+        }
+    }
+</script>
+
+</body>
+
+</html><!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Booking Website</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+         header {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            text-align: left;
+            padding: 10px;
+        }
+
+        .hotel-logo a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .hotel-logo {
+            position: absolute;
+            top: 15px;
+            left: 70px;
+        }
+
+        .hotel-logo img {
+            width: 50px;
+            height: auto;
+        }
+
+
+        footer {
+            background-color: rgb(22, 22, 112);
+            color: #fff;
+            text-align: center;
+            padding: 2em 0;
+        }
+
+        .footer-sections {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .footer-section-left {
+            text-align: left;
+        }
+
+        .footer-section-center {
+            text-align: center;
+        }
+
+        .footer-section-right {
+            text-align: right;
+        }
+
+        h3 {
+            color: #f5a623;
+        }
+
+        p {
+            margin: 0.5em 0;
+        }
+
+        strong {
+            color: #f5a623;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #f5a623;
+        }
+
+        .footer-social ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-social li {
+            margin: 0 10px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: #f5a623;
+        }
+
+        .footer-copyright {
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+
+        .back-to-top-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<header>
+    <div class="hotel-logo">
+        <a href="hotel.html">
+            <img src="./Assets/images/hotel-logo.jpeg" alt="Hotel Logo">
+        </a>
+    </div>
+
+
+    <div class="navbar">
+
+        <ul>
+            <li><a href="mybookings.html">Bookings</a></li>
+            <li><a href="room_details.html">Rooms</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="login.html">Sign In</a></li>
+        </ul>
+    </div>
+
+</header>
+
+<div class="hotel-photo">
+        <img src="./Assets/images/entrance.jpg" alt="Hotel Photo">
+        <div class="hotel-title">Moonlight Manor</div>
+    </div>
+
+    <div class="room-section">
+        <div class="room left">
+            <img src="./Assets/images/single.jpg" alt="Single Bedroom">
+            <div class="description">
+                <h1 class="room-title">Single's Heaven</h1>
+                <p>Our single bedroom invites the peaceful atmosphere of the woods inside with its beautiful view of the forest. A comfortable retreat is created by the exquisite furnishings that blend in with the lush canopy outside. It is the ideal retreat for solo travellers looking for inspiration and tranquilly since you can fully immerse yourself in the calming sounds of nature and have all the comforts of home at your fingertips.</p>
+            </div>
+        </div>
+
+
+        <div class="room right">
+            <div class="description">
+                <h1 class="room-title">Queen's Regal Repose</h1>
+                <p>The Queen's Bedroom is a luxurious retreat boasting majestic views of the forest's emerald expanse. Elegant furnishings fit for royalty, rich textures, and an elegant queen-sized bed make this room an opulent escape. Wake up to the forest's enchanting chorus, in a room that celebrates the essence of nobility and comfort.</p>
+            </div>
+            <img src="./Assets/images/queen.jpg" alt="Queen's Bedroom">
+        </div>
+
+        <div class="room left">
+            <div class="description">
+                <h1 class="room-title">Coastal Twinscape</h1>
+                <p>With its panoramic view of the pristine beach, the double bedroom is a harmonious blend of soft sand and blue waves. Two comfortable beds ensure a good night's sleep as the light breeze from the sea lingers through the spacious room. With its stunning sunrises and the soothing sound of the ocean tide, this room is the perfect place for friends and family to get together.</p>
+            </div>
+            <img src="./Assets/images/twin.jpg" alt="Twin's Bedroom">
+        </div>
+
+        <div class="room right">
+            <div class="description">
+                <h1 class="room-title">King's Comfort</h1>
+                <p>Commanding a sweeping beachfront vista, the King's Bedroom is the epitome of grandeur and scale. A king-sized bed anchors the spacious chamber, where the horizon meets the sky. The decor reflects the vastness and beauty of the ocean, offering guests a stay that is as regal as it is relaxing, with every wave bringing a sense of majestic tranquility.</p>
+            </div>
+            <img src="./Assets/images/king.jpg" alt="King's Bedroom">
+        </div>
+
+        <div class="room left">
+            <div class="description">
+                <h1 class="room-title">The Pinnacle</h1>
+                <p>The crown jewel of the hotel, the Presidential Suite on the fifth floor, offers an unparalleled, dual view of the dense, mystic forest and the boundless, tranquil beach. This opulent suite is the pinnacle of luxury, with a palatial bed, a private lounge, and an expansive balcony. Indulge in the height of sophistication and privacy, with a 360-degree panorama that captures the essence of the hotel's exquisite locale.</p>
+            </div>
+            <img src="./Assets/images/presidential.jpg" alt="Presidential suite">
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Moonlight Manor</p>
+                    <p>123 Luxury Street, Heidelberg</p>
+                    <p>Phone: +49-123-456-7890</p>
+                    <p>Email: MoonlightManorhotel@gmail.com</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="hotel.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="mybookings.html">My Bookings</a></li>
+                        <li><a href="room_details.html">Rooms</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-social">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+                        <li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+                    </ul>
+                </div>
+        </div>
+
+            <p class="footer-copyright">&copy; 2023 Moonlight Manor. All rights reserved.</p>
+        </footer>
+
+        <button class="back-to-top-btn" onclick="scrollToTop()">Back to Top</button>
+
+    </div>
+
+<script>
+    const backToTopBtn = document.querySelector('.back-to-top-btn');
+
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 500) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    window.onload = function() {
+        const signInButton = document.querySelector('.navbar a[href="login.html"]');
+
+        const userToken = localStorage.getItem('token');
+        if (userToken) {
+            // User is logged in
+            signInButton.textContent = 'Sign Out';
+            signInButton.href = '#'; // Remove the link to login page
+            signInButton.addEventListener('click', function() {
+
+                localStorage.clear();
+                sessionStorage.clear();
+
+                window.location.href = 'hotel.html';
+            });
+        } else {
+
+        }
+    }
+</script>
+
+</body>
+
+</html>

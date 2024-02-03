@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: rgb(22, 22, 112);
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        #logoutButton {
+        /* Add your styling here */
+        background-color: #0718d2; /* Red color for logout button */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px; /* Adjust as needed */
+    }
+
+    #logoutButton:hover {
+        background-color: #d32f2f;
+    }
+
+        nav {
+            background-color: #eee;
+            padding: 10px;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: rgb(22, 22, 112);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+         /* Back to Top Button Styles */
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #back-to-top:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Admin Page</h1>
+    <button id="logoutButton">Logout</button>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#room_status">Room Status</a></li>
+        <li><a href="#customer_management">Customer Management</a></li>
+        <li><a href="#service_management">Service Management</a></li>
+        <li><a href="#booking_management">Booking Management</a></li>
+        <li><a href="#transaction_management">Transaction Management</a></li>
+        <li><a href="#employee_management">Employee Management</a></li>
+    </ul>
+</nav>
+
+<section id="room_status">
+    <h2>Room Management</h2>
+
+    <!-- Form for Creating New Room -->
+    <div>
+        <h3>Add New Room</h3>
+        <form id="createRoomForm">
+            <input type="text" id="newRoomType" placeholder="Room Type" required>
+            <input type="number" id="newFloor" placeholder="Floor" required>
+            <input type="text" id="newViewType" placeholder="View Type" required>
+            <input type="number" id="newRoomPrice" placeholder="Room Price" required>
+            <input type="text" id="newRoomDesc" placeholder="Room Description" required>
+            <input type="bool" id="newRoomStatus" placeholder="Room Status" required>
+            <button type="button" onclick="createRoom()">Add Room</button>
+        </form>
+    </div>
+
+    <!-- Table for Displaying Rooms -->
+    <div>
+        <h3>Current Rooms</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Room Type</th>
+                    <th>Floor</th>
+                    <th>View Type</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="roomsContainer">
+                <!-- Rooms will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Form for Updating Room (Initially Hidden) -->
+    <div id="updateRoomForm" style="display: none;">
+        <h3>Update Room</h3>
+        <form>
+            <input type="hidden" id="updateRoomId">
+            <input type="text" id="updateRoomType" placeholder="Room Type" required>
+            <input type="number" id="updateFloor" placeholder="Floor" required>
+            <input type="text" id="updateViewType" placeholder="View Type" required>
+            <input type="number" id="updateRoomPrice" placeholder="Room Price" required>
+            <input type="text" id="updateRoomDesc" placeholder="Room Description" required>
+            <input type="bool" id="updateRoomStatus" placeholder="Room Status" required>
+            <button type="button" onclick="updateRoom()">Update Room</button>
+        </form>
+    </div>
+</section>
+
+
+<section id="customer_management">
+    <h2>Customer Management</h2>
+
+    <!-- Form for Creating New Customer -->
+    <div>
+        <h3>Add New Customer</h3>
+        <form id="createCustomerForm">
+            <input type="text" id="newCustomerFirstName" placeholder="First Name" required>
+            <input type="text" id="newCustomerLastName" placeholder="Last Name" required>
+            <input type="email" id="newCustomerEmail" placeholder="Email" required>
+            <input type="text" id="newCustomerPhone" placeholder="Phone" required>
+            <input type="password" id="newCustomerPassword" placeholder="Password" required>
+            <button type="button" onclick="createCustomer()">Add Customer</button>
+        </form>
+    </div>
+
+    <!-- Table for Displaying Customers -->
+    <div>
+        <h3>Current Customers</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="customersContainer">
+                <!-- Customers will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Form for Updating Customer (Initially Hidden) -->
+    <div id="updateCustomerForm" style="display: none;">
+        <h3>Update Customer</h3>
+        <form>
+            <input type="hidden" id="updateCustomerId">
+            <input type="text" id="updateCustomerFirstName" placeholder="First Name" required>
+            <input type="text" id="updateCustomerLastName" placeholder="Last Name" required>
+            <input type="email" id="updateCustomerEmail" placeholder="Email" required>
+            <input type="text" id="updateCustomerPhone" placeholder="Phone" required>
+            <input type="password" id="updateCustomerPassword" placeholder="Password" required>
+            <button type="button" onclick="updateCustomer()">Update Customer</button>
+        </form>
+    </div>
+</section>
+
+
+<section id="service_management">
+    <h2>Service Management</h2>
+
+    <!-- Form for Creating New Service -->
+    <div>
+        <h3>Add New Service</h3>
+        <form id="createServiceForm">
+            <input type="text" id="newServiceName" placeholder="Service Name" required>
+            <input type="text" id="newServiceDescription" placeholder="Description" required>
+            <input type="number" id="newServicePrice" placeholder="Price" required>
+            <button type="button" onclick="createService()">Add Service</button>
+        </form>
+    </div>
+
+    <!-- Table for Displaying Services -->
+    <div>
+        <h3>Current Services</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Service Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="servicesContainer">
+                <!-- Services will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Form for Updating Service (Initially Hidden) -->
+    <div id="updateServiceForm" style="display: none;">
+        <h3>Update Service</h3>
+        <form>
+            <input type="hidden" id="updateServiceId">
+            <input type="text" id="updateServiceName" placeholder="Service Name" required>
+            <input type="text" id="updateServiceDescription" placeholder="Description" required>
+            <input type="number" id="updateServicePrice" placeholder="Price" required>
+            <button type="button" onclick="updateService()">Update Service</button>
+        </form>
+    </div>
+</section>
+
+<section id="booking_management">
+    <h2>Booking Management</h2>
+
+    <!-- Form for Creating New Booking -->
+    <div id="createBookingForm">
+        <h3>Add New Booking</h3>
+        <form>
+            <input type="number" id="newBookingCustomerId" placeholder="Customer ID" required>
+            <input type="number" id="newBookingServiceId" placeholder="Service ID (Optional)">
+            <input type="number" id="newBookingRoomId" placeholder="Room ID" required>
+            <input type="date" id="newBookingCheckInDate" placeholder="Check-in Date" required>
+            <input type="date" id="newBookingCheckOutDate" placeholder="Check-out Date" required>
+            <button type="button" onclick="createBooking()">Add Booking</button>
+        </form>
+    </div>
+
+    <!-- Form for Updating Booking -->
+    <div id="updateBookingForm" style="display: none;">
+        <h3>Update Booking</h3>
+        <form>
+            <input type="hidden" id="updateBookingId">
+            <input type="number" id="updateBookingCustomerId" placeholder="Customer ID" required>
+            <input type="number" id="updateBookingServiceId" placeholder="Service ID (Optional)">
+            <input type="number" id="updateBookingRoomId" placeholder="Room ID" required>
+            <input type="date" id="updateBookingCheckInDate" placeholder="Check-in Date" required>
+            <input type="date" id="updateBookingCheckOutDate" placeholder="Check-out Date" required>
+            <button type="button" onclick="updateBooking()">Update Booking</button>
+        </form>
+    </div>
+
+    <!-- Table for Displaying Bookings -->
+    <div>
+        <h3>Current Bookings</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer ID</th>
+                    <th>Service ID</th>
+                    <th>Room ID</th>
+                    <th>Check-in Date</th>
+                    <th>Check-out Date</th>
+                    <th>Total Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="bookingsContainer">
+                <!-- Bookings will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+</section>
+<section id="transaction_management">
+    <h2>Transaction Management</h2>
+
+    <!-- Form for Creating New Transaction -->
+    <div id="createTransactionForm">
+        <h3>Add New Transaction</h3>
+        <form>
+            <input type="number" id="newTransactionBookingId" placeholder="Booking ID" required>
+            <input type="number" id="newTransactionCustomerId" placeholder="Customer ID" required>
+            <input type="number" id="newTransactionTotalAmount" placeholder="Total Amount" required>
+            <input type="text" id="newTransactionPaymentType" placeholder="Payment Type" required>
+            <button type="button" onclick="createTransaction()">Add Transaction</button>
+        </form>
+    </div>
+
+    <!-- Form for Updating Transaction (Initially Hidden) -->
+    <div id="updateTransactionForm" style="display: none;">
+        <h3>Update Transaction</h3>
+        <form>
+            <input type="hidden" id="updateTransactionId">
+            <input type="number" id="updateTransactionBookingId" placeholder="Booking ID" required>
+            <input type="number" id="updateTransactionCustomerId" placeholder="Customer ID" required>
+            <input type="number" id="updateTransactionTotalAmount" placeholder="Total Amount" required>
+            <input type="text" id="updateTransactionPaymentType" placeholder="Payment Type" required>
+            <button type="button" onclick="updateTransaction()">Update Transaction</button>
+        </form>
+    </div>
+
+    <!-- Table for Displaying Transactions -->
+    <div>
+        <h3>Current Transactions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Booking ID</th>
+                    <th>Customer ID</th>
+                    <th>Total Amount</th>
+                    <th>Payment Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="transactionsContainer">
+                <!-- Transactions will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+</section>
+<section id="employee_management">
+    <h2>Employee Management</h2>
+
+    <!-- Form for Creating New Employee -->
+    <div id="createEmployeeForm">
+        <h3>Add New Employee</h3>
+        <form>
+            <input type="text" id="newEmployeeName" placeholder="Employee Name" required>
+            <input type="number" id="newEmployeeServiceId" placeholder="Service ID" required>
+            <input type="text" id="newEmployeeDescription" placeholder="Description" required>
+            <button type="button" onclick="createEmployee()">Add Employee</button>
+        </form>
+    </div>
+
+    <!-- Table for Displaying Employees -->
+    <div>
+        <h3>Current Employees</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Service ID</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="employeesContainer">
+                <!-- Employees will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Form for Updating Employee (Initially Hidden) -->
+    <div id="updateEmployeeForm" style="display: none;">
+        <h3>Update Employee</h3>
+        <form>
+            <input type="hidden" id="updateEmployeeId">
+            <input type="text" id="updateEmployeeName" placeholder="Employee Name" required>
+            <input type="number" id="updateEmployeeServiceId" placeholder="Service ID" required>
+            <input type="text" id="updateEmployeeDescription" placeholder="Description" required>
+            <button type="button" onclick="updateEmployee()">Update Employee</button>
+        </form>
+    </div>
+</section>
+
+
+
+
+<footer>
+    <p>&copy; 2023 Moonlight Manor. All rights reserved.</p>
+</footer>
+
+<button id="back-to-top" onclick="scrollToTop()">Back to Top</button>
+
+<script>
+    // Back to Top Functionality
+function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    // Show/Hide Footer and Back to Top Button
+    var prevScrollpos = window.pageYOffset;
+
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+        var footer = document.getElementById('footer');
+        var button = document.getElementById('back-to-top');
+
+        if (prevScrollpos > currentScrollPos) {
+            // Scrolling up
+            footer.style.transform = 'translateY(0)';
+            button.style.display = 'block';
+        } else {
+            // Scrolling down
+            footer.style.transform = 'translateY(100%)';
+            button.style.display = 'none';
+        }
+
+        prevScrollpos = currentScrollPos;
+    };
+//     function checkLogin() {
+//     const token = localStorage.getItem('token');
+//     console.log('Token:', token); // For debugging
+
+//     if (!token) {
+//         console.log('Redirecting to login...'); // For debugging
+//         window.location.href = '/login.html';
+//     }
+// }
+
+// window.onload = checkLogin;
+function fetchRooms() {
+    fetch('http://localhost:8000/rooms/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(rooms => {
+        const roomsContainer = document.getElementById('roomsContainer');
+        roomsContainer.innerHTML = rooms.map(room => createRoomRowHTML(room)).join('');
+    })
+    .catch(error => {
+        console.error('Error fetching rooms:', error);
+    });
+}
+
+function createRoomRowHTML(room) {
+    return `
+        <tr>
+            <td>${room.roomid}</td>
+            <td>${room.room_type}</td>
+            <td>${room.floor}</td>
+            <td>${room.view_type}</td>
+            <td>${room.room_price}</td>
+            <td>${room.room_desc}</td>
+            <td>${room.is_available}</td>
+            <td>
+                <button onclick="showUpdateRoomForm(${room.roomid})">Update</button>
+                <button onclick="deleteRoom(${room.roomid})">Delete</button>
+            </td>
+        </tr>
+    `;
+}
+
+
+function showCreateRoomForm() {
+    document.getElementById('createRoomForm').style.display = 'block';
+}
+
+function createRoom() {
+    const roomType = document.getElementById('newRoomType').value;
+    const floor = document.getElementById('newFloor').value;
+    const viewType = document.getElementById('newViewType').value;
+    const roomPrice = document.getElementById('newRoomPrice').value;
+    const roomDesc = document.getElementById('newRoomDesc').value;
+    const roomStatus = document.getElementById('newRoomStatus').value;
+
+    fetch('http://localhost:8000/rooms/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ room_type: roomType, floor, view_type: viewType, room_price: roomPrice, room_desc: roomDesc , is_available: roomStatus})
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Refresh the rooms list and reset the form
+        fetchRooms();
+        resetCreateRoomForm();
+    })
+    .catch(error => {
+        console.error('Error creating room:', error);
+    });
+}
+
+
+function showUpdateRoomForm(roomId) {
+    fetch(`http://localhost:8000/rooms/${roomId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(room => {
+        // Update form fields with room details
+        document.getElementById('newRoomType').value = room.room_type;
+        document.getElementById('newFloor').value = room.floor;
+        document.getElementById('newViewType').value = room.view_type;
+        document.getElementById('newRoomPrice').value = room.room_price;
+        document.getElementById('newRoomDesc').value = room.room_desc;
+        document.getElementById('newRoomStatus').value = room.is_available;
+
+        // Change the create button to an update button
+        const submitButton = document.getElementById('createRoomForm').querySelector('button');
+        submitButton.onclick = () => updateRoom(roomId);
+        submitButton.textContent = 'Update Room';
+
+        // Show the form
+        document.getElementById('createRoomForm').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error fetching room details:', error);
+    });
+}
+
+
+function updateRoom(roomId) {
+    const roomType = document.getElementById('newRoomType').value;
+    const floor = document.getElementById('newFloor').value;
+    const viewType = document.getElementById('newViewType').value;
+    const roomPrice = document.getElementById('newRoomPrice').value;
+    const roomDesc = document.getElementById('newRoomDesc').value;
+    const roomStatus = document.getElementById('newRoomStatus').value;
+
+    fetch(`http://localhost:8000/rooms/${roomId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ room_type: roomType, floor, view_type: viewType, room_price: roomPrice, room_desc: roomDesc, is_available: roomStatus })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Refresh the rooms list and reset the form
+        fetchRooms();
+        resetCreateRoomForm();
+    })
+    .catch(error => {
+        console.error('Error updating room:', error);
+    });
+}
+
+
+
+function resetCreateRoomForm() {
+    document.getElementById('newRoomType').value = '';
+    document.getElementById('newFloor').value = '';
+    document.getElementById('newViewType').value = '';
+    document.getElementById('newRoomPrice').value = '';
+    document.getElementById('newRoomDesc').value = '';
+    document.getElementById('newRoomStatus').value = '';
+    const submitButton = document.getElementById('createRoomForm').querySelector('button');
+    submitButton.onclick = createRoom;
+    submitButton.textContent = 'Submit';
+    document.getElementById('createRoomForm').style.display = 'none';
+}
+
+function deleteRoom(roomId) {
+    fetch(`http://localhost:8000/rooms/${roomId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Refresh the rooms list
+        fetchRooms();
+    })
+    .catch(error => {
+        console.error('Error deleting room:', error);
+    });
+}
+
+
+
+
+function createCustomer() {
+    // Create a FormData object
+    const formData = new FormData();
+    formData.append('first_name', document.getElementById('newCustomerFirstName').value);
+    formData.append('last_name', document.getElementById('newCustomerLastName').value);
+    formData.append('email', document.getElementById('newCustomerEmail').value);
+    formData.append('phone', document.getElementById('newCustomerPhone').value);
+    formData.append('password', document.getElementById('newCustomerPassword').value);
+
+    fetch('http://localhost:8000/customers/', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            // 'Content-Type': 'application/json' is removed because FormData uses 'multipart/form-data'
+        },
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        alert('Customer added successfully');
+        fetchCustomers(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error adding customer:', error);
+        alert('Error adding customer.');
+    });
+}
+
+function updateCustomer() {
+    const customerId = document.getElementById('updateCustomerId').value;
+    const updatedCustomerData = {
+        first_name: document.getElementById('updateCustomerFirstName').value,
+        last_name: document.getElementById('updateCustomerLastName').value,
+        email: document.getElementById('updateCustomerEmail').value,
+        phone: document.getElementById('updateCustomerPhone').value,
+        password: document.getElementById('updateCustomerPassword').value
+    };
+
+    fetch(`http://localhost:8000/customers/${customerId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(updatedCustomerData)
+    })
+    .then(response => response.json())
+    .then(() => {
+        alert('Customer updated successfully');
+        fetchCustomers(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error updating customer:', error);
+        alert('Error updating customer.');
+    });
+}
+
+function deleteCustomer(customerId) {
+    if (!confirm('Are you sure you want to delete this customer?')) {
+        return;
+    }
+
+    fetch(`http://localhost:8000/customers/${customerId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        alert('Customer deleted successfully');
+        fetchCustomers(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error deleting customer:', error);
+        alert('Error deleting customer.');
+    });
+}
+
+function fetchCustomers() {
+    fetch('http://localhost:8000/customers/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(customers => {
+        const customersContainer = document.getElementById('customersContainer');
+        customersContainer.innerHTML = customers.map(customer => createCustomerRowHTML(customer)).join('');
+    })
+    .catch(error => {
+        console.error('Error fetching customers:', error);
+    });
+}
+
+function createCustomerRowHTML(customer) {
+    return `
+        <tr>
+            <td>${customer.customerid}</td>
+            <td>${customer.first_name}</td>
+            <td>${customer.last_name}</td>
+            <td>${customer.email}</td>
+            <td>${customer.phone}</td>
+            <td>
+                <button onclick="showUpdateCustomerForm(${customer.customerid})">Update</button>
+                <button onclick="deleteCustomer(${customer.customerid})">Delete</button>
+            </td>
+        </tr>
+    `;
+}
+
+function showUpdateCustomerForm(customerId) {
+    // Fetch customer details and populate the update form
+    fetch(`http://localhost:8000/customers/${customerId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(customer => {
+        document.getElementById('updateCustomerId').value = customer.customerid;
+        document.getElementById('updateCustomerFirstName').value = customer.first_name;
+        document.getElementById('updateCustomerLastName').value = customer.last_name;
+        document.getElementById('updateCustomerEmail').value = customer.email;
+        document.getElementById('updateCustomerPhone').value = customer.phone;
+        // Toggle forms visibility
+        document.getElementById('createCustomerForm').style.display = 'none';
+        document.getElementById('updateCustomerForm').style.display = 'block';
+    })
+    .catch(error => console.error('Error fetching customer details:', error));
+}
+
+function toggleCustomerForm(isUpdate = false) {
+    if (isUpdate) {
+        document.getElementById('createCustomerForm').style.display = 'none';
+        document.getElementById('updateCustomerForm').style.display = 'block';
+    } else {
+        document.getElementById('createCustomerForm').style.display = 'block';
+        document.getElementById('updateCustomerForm').style.display = 'none';
+    }
+}
+
+function fetchServices() {
+    fetch('http://localhost:8000/services/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(services => {
+        const servicesContainer = document.getElementById('servicesContainer');
+        servicesContainer.innerHTML = services.map(service => createServiceRowHTML(service)).join('');
+    })
+    .catch(error => console.error('Error fetching services:', error));
+}
+
+function createServiceRowHTML(service) {
+    return `
+        <tr>
+            <td>${service.serviceid}</td>
+            <td>${service.service_name}</td>
+            <td>${service.description}</td>
+            <td>${service.price}</td>
+            <td>
+                <button onclick="showUpdateServiceForm(${service.serviceid})">Update</button>
+                <button onclick="deleteService(${service.serviceid})">Delete</button>
+            </td>
+        </tr>
+    `;
+}
+
+function createService() {
+    const newServiceData = {
+        service_name: document.getElementById('newServiceName').value,
+        description: document.getElementById('newServiceDescription').value,
+        price: parseFloat(document.getElementById('newServicePrice').value)
+    };
+
+    fetch('http://localhost:8000/services/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(newServiceData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        alert('Service added successfully');
+        fetchServices(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error adding service:', error);
+        alert('Error adding service.');
+    });
+}
+
+function showUpdateServiceForm(serviceId) {
+    fetch(`http://localhost:8000/services/${serviceId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(service => {
+        toggleServiceForm(true, service);
+    })
+    .catch(error => console.error('Error fetching service details:', error));
+}
+
+function updateService() {
+    const serviceId = document.getElementById('updateServiceId').value;
+    const updatedServiceData = {
+        service_name: document.getElementById('updateServiceName').value,
+        description: document.getElementById('updateServiceDescription').value,
+        price: parseFloat(document.getElementById('updateServicePrice').value)
+    };
+
+    fetch(`http://localhost:8000/services/${serviceId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(updatedServiceData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        toggleServiceForm(false);
+        alert('Service updated successfully');
+        fetchServices(); // Refresh the list
+        document.getElementById('updateServiceForm').style.display = 'none';
+    })
+    .catch(error => {
+        console.error('Error updating service:', error);
+        alert('Error updating service.');
+    });
+}
+
+function deleteService(serviceId) {
+    if (!confirm('Are you sure you want to delete this service?')) {
+        return;
+    }
+
+    fetch(`http://localhost:8000/services/${serviceId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        alert('Service deleted successfully');
+        fetchServices(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error deleting service:', error);
+        alert('Error deleting service.');
+    });
+}
+
+function toggleServiceForm(isUpdate = false, service = null) {
+    const createForm = document.getElementById('createServiceForm');
+    const submitButton = createForm.querySelector('button');
+
+    if (isUpdate && service) {
+        // Populate the form with existing service data for updating
+        document.getElementById('newServiceName').value = service.service_name;
+        document.getElementById('newServiceDescription').value = service.description;
+        document.getElementById('newServicePrice').value = service.price;
+
+        // Change the button function and text to update
+        submitButton.onclick = () => updateService(service.serviceid);
+        submitButton.textContent = 'Update Service';
+    } else {
+        // Reset the form for creating new service
+        createForm.reset();
+        submitButton.onclick = createService;
+        submitButton.textContent = 'Add Service';
+    }
+
+    // Toggle form visibility
+    createForm.style.display = 'block';
+}
+
+function fetchBookings() {
+    fetch('http://localhost:8000/bookings/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(bookings => {
+        const bookingsContainer = document.getElementById('bookingsContainer');
+        bookingsContainer.innerHTML = bookings.map(booking => createBookingRowHTML(booking)).join('');
+    })
+    .catch(error => console.error('Error fetching bookings:', error));
+}
+
+function createBookingRowHTML(booking) {
+    return `
+        <tr>
+            <td>${booking.bookingid}</td>
+            <td>${booking.customerid}</td>
+            <td>${booking.serviceid || 'None'}</td>
+            <td>${booking.roomid}</td>
+            <td>${booking.checkin_date}</td>
+            <td>${booking.checkout_date}</td>
+            <td>${booking.total_amount}</td>
+            <td>
+                <button onclick="showUpdateBookingForm(${booking.bookingid})">Update</button>
+                <button onclick="deleteBooking(${booking.bookingid})">Delete</button>
+            </td>
+        </tr>
+    `;
+}
+
+function createBooking() {
+    const newBookingData = {
+        customerid: parseInt(document.getElementById('newBookingCustomerId').value),
+        serviceid: document.getElementById('newBookingServiceId').value ? parseInt(document.getElementById('newBookingServiceId').value) : null,
+        roomid: parseInt(document.getElementById('newBookingRoomId').value),
+        checkin_date: document.getElementById('newBookingCheckInDate').value,
+        checkout_date: document.getElementById('newBookingCheckOutDate').value,
+        total_amount: 100.0 // Dummy total amount
+    };
+
+    fetch('http://localhost:8000/bookings/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(newBookingData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        alert('Booking added successfully');
+        fetchBookings();
+    })
+    .catch(error => {
+        console.error('Error adding booking:', error);
+        alert('Error adding booking.');
+    });
+}
+
+function updateBooking() {
+    const bookingId = document.getElementById('updateBookingId').value;
+    const updatedBookingData = {
+        customerid: parseInt(document.getElementById('updateBookingCustomerId').value),
+        serviceid: document.getElementById('updateBookingServiceId').value ? parseInt(document.getElementById('updateBookingServiceId').value) : null,
+        roomid: parseInt(document.getElementById('updateBookingRoomId').value),
+        checkin_date: document.getElementById('updateBookingCheckInDate').value,
+        checkout_date: document.getElementById('updateBookingCheckOutDate').value,
+        total_amount: 100.0 // Dummy total amount
+    };
+
+    fetch(`http://localhost:8000/bookings/${bookingId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(updatedBookingData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        alert('Booking updated successfully');
+        fetchBookings(); // Refresh the list
+                 // Hide the form
+    })
+    .catch(error => {
+        console.error('Error updating booking:', error);
+        alert('Error updating booking.');
+    });
+}
+
+function deleteBooking(bookingId) {
+    if (!confirm('Are you sure you want to delete this booking?')) {
+        return;
+    }
+
+    fetch(`http://localhost:8000/bookings/${bookingId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        alert('Booking deleted successfully');
+        fetchBookings(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error deleting booking:', error);
+        alert('Error deleting booking.');
+    });
+}
+
+function showUpdateBookingForm(bookingId) {
+    fetch(`http://localhost:8000/bookings/${bookingId}/`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(booking => {
+        // Populate the update form with booking details
+        document.getElementById('updateBookingId').value = booking.bookingid;
+        document.getElementById('updateBookingCustomerId').value = booking.customerid;
+        document.getElementById('updateBookingServiceId').value = booking.serviceid || '';
+        document.getElementById('updateBookingRoomId').value = booking.roomid;
+        document.getElementById('updateBookingCheckInDate').value = booking.checkin_date;
+        document.getElementById('updateBookingCheckOutDate').value = booking.checkout_date;
+
+        // Display the update form
+        document.getElementById('updateBookingForm').style.display = 'block';
+    })
+    .catch(error => console.error('Error fetching booking details:', error));
+}
+
+function fetchTransactions() {
+    fetch('http://localhost:8000/transactions', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(transactions => {
+        const transactionsContainer = document.getElementById('transactionsContainer');
+        transactionsContainer.innerHTML = transactions.map(transaction => createTransactionRowHTML(transaction)).join('');
+    })
+    .catch(error => console.error('Error fetching transactions:', error));
+}
+
+function createTransactionRowHTML(transaction) {
+    return `
+        <tr>
+            <td>${transaction.transactionid}</td>
+            <td>${transaction.bookingid}</td>
+            <td>${transaction.customerid}</td>
+            <td>${transaction.total_amount}</td>
+            <td>${transaction.payment_type}</td>
+            <td>
+                <button onclick="showUpdateTransactionForm(${transaction.transactionid})">Update</button>
+                <button onclick="deleteTransaction(${transaction.transactionid})">Delete</button>
+            </td>
+        </tr>
+    `;
+}
+
+function createTransaction() {
+    const newTransactionData = {
+        bookingid: parseInt(document.getElementById('newTransactionBookingId').value),
+        customerid: parseInt(document.getElementById('newTransactionCustomerId').value),
+        total_amount: parseFloat(document.getElementById('newTransactionTotalAmount').value),
+        payment_type: document.getElementById('newTransactionPaymentType').value
+    };
+
+    fetch('http://localhost:8000/transactions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(newTransactionData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        alert('Transaction added successfully');
+        fetchTransactions(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error adding transaction:', error);
+        alert('Error adding transaction.');
+    });
+}
+
+function showUpdateTransactionForm(transactionId) {
+    fetch(`http://localhost:8000/transactions/${transactionId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(transaction => {
+        document.getElementById('updateTransactionId').value = transaction.transactionid;
+        document.getElementById('updateTransactionBookingId').value = transaction.bookingid;
+        document.getElementById('updateTransactionCustomerId').value = transaction.customerid;
+        document.getElementById('updateTransactionTotalAmount').value = transaction.total_amount;
+        document.getElementById('updateTransactionPaymentType').value = transaction.payment_type;
+
+        document.getElementById('updateTransactionForm').style.display = 'block';
+        document.getElementById('createTransactionForm').style.display = 'none';
+    })
+    .catch(error => console.error('Error fetching transaction details:', error));
+}
+
+function updateTransaction() {
+    const transactionId = document.getElementById('updateTransactionId').value;
+    const updatedTransactionData = {
+        bookingid: parseInt(document.getElementById('updateTransactionBookingId').value),
+        customerid: parseInt(document.getElementById('updateTransactionCustomerId').value),
+        total_amount: parseFloat(document.getElementById('updateTransactionTotalAmount').value),
+        payment_type: document.getElementById('updateTransactionPaymentType').value
+    };
+
+    fetch(`http://localhost:8000/transactions/${transactionId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(updatedTransactionData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        alert('Transaction updated successfully');
+        fetchTransactions(); // Refresh the list
+        document.getElementById('updateTransactionForm').style.display = 'none';
+        document.getElementById('createTransactionForm').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error updating transaction:', error);
+        alert('Error updating transaction.');
+    });
+}
+
+function deleteTransaction(transactionId) {
+    if (!confirm('Are you sure you want to delete this transaction?')) {
+        return;
+    }
+
+    fetch(`http://localhost:8000/transactions/${transactionId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        alert('Transaction deleted successfully');
+        fetchTransactions(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error deleting transaction:', error);
+        alert('Error deleting transaction.');
+    });
+}
+
+
+function fetchEmployees() {
+    fetch('http://localhost:8000/employees/', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(employees => {
+        const employeesContainer = document.getElementById('employeesContainer');
+        employeesContainer.innerHTML = employees.map(employee => createEmployeeRowHTML(employee)).join('');
+    })
+    .catch(error => console.error('Error fetching employees:', error));
+}
+
+function createEmployeeRowHTML(employee) {
+    return `
+        <tr>
+            <td>${employee.employeeid}</td>
+            <td>${employee.emp_name}</td>
+            <td>${employee.serviceid}</td>
+            <td>${employee.description}</td>
+            <td>
+                <button onclick="showUpdateEmployeeForm(${employee.employeeid})">Update</button>
+                <button onclick="deleteEmployee(${employee.employeeid})">Delete</button>
+            </td>
+        </tr>
+    `;
+}
+
+function createEmployee() {
+    const newEmployeeData = {
+        emp_name: document.getElementById('newEmployeeName').value,
+        serviceid: parseInt(document.getElementById('newEmployeeServiceId').value),
+        description: document.getElementById('newEmployeeDescription').value
+    };
+
+    fetch('http://localhost:8000/employees/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(newEmployeeData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        alert('Employee added successfully');
+        fetchEmployees(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error adding employee:', error);
+        alert('Error adding employee.');
+    });
+}
+
+function showUpdateEmployeeForm(employeeId) {
+    fetch(`http://localhost:8000/employees/${employeeId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(employee => {
+        document.getElementById('updateEmployeeId').value = employee.employeeid;
+        document.getElementById('updateEmployeeName').value = employee.emp_name;
+        document.getElementById('updateEmployeeServiceId').value = employee.serviceid;
+        document.getElementById('updateEmployeeDescription').value = employee.description;
+        document.getElementById('updateEmployeeForm').style.display = 'block';
+    })
+    .catch(error => console.error('Error fetching employee details:', error));
+}
+
+function updateEmployee() {
+    const employeeId = document.getElementById('updateEmployeeId').value;
+    const updatedEmployeeData = {
+        emp_name: document.getElementById('updateEmployeeName').value,
+        serviceid: parseInt(document.getElementById('updateEmployeeServiceId').value),
+        description: document.getElementById('updateEmployeeDescription').value
+    };
+
+    fetch(`http://localhost:8000/employees/${employeeId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(updatedEmployeeData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(() => {
+        alert('Employee updated successfully');
+        fetchEmployees(); // Refresh the list
+        document.getElementById('updateEmployeeForm').style.display = 'none';
+    })
+    .catch(error => {
+        console.error('Error updating employee:', error);
+        alert('Error updating employee.');
+    });
+}
+
+function deleteEmployee(employeeId) {
+    if (!confirm('Are you sure you want to delete this employee?')) {
+        return;
+    }
+
+    fetch(`http://localhost:8000/employees/${employeeId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        alert('Employee deleted successfully');
+        fetchEmployees(); // Refresh the list
+    })
+    .catch(error => {
+        console.error('Error deleting employee:', error);
+        alert('Error deleting employee.');
+    });
+}
+
+function showSection(sectionId) {
+    // List of all section IDs
+    const sections = ['room_status', 'customer_management', 'service_management', 'booking_management', 'transaction_management', 'employee_management'];
+
+    // Hide all sections
+    sections.forEach(sec => {
+        document.getElementById(sec).style.display = 'none';
+    });
+
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
+}
+
+
+
+document.getElementById('logoutButton').addEventListener('click', function() {
+        // Clear the stored token
+        localStorage.removeItem('admin_token');
+
+        // Redirect to the login page
+        window.location.href = 'adminLogin.html'; // Update with the correct path to your login page
+    });
+
+// Add event listeners to navigation links
+window.onload = function() {
+    const adminToken = localStorage.getItem('admin_token');
+        if (!adminToken) {
+            window.location.href = '/adminLogin.html';
+        }
+    document.querySelectorAll('nav ul li a').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const sectionId = this.getAttribute('href').substring(1); // Remove '#' from href
+            showSection(sectionId);
+        });
+    });
+
+    // Initial fetch calls and setup
+    fetchRooms();
+    fetchCustomers();
+    fetchServices();
+    fetchTransactions();
+    fetchEmployees();
+    fetchBookings();
+    toggleServiceForm(false);
+    // checkLogin();
+    // Initially show only the first section (or whichever you prefer)
+    showSection('room_status');
+};
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

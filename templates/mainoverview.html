@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Overview</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        h3 {
+            color: #555;
+        }
+
+        div {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .flash-message {
+            color: #fff;
+            background-color: #4caf50;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none; /* initially hide the flash message */
+        }
+
+        .flash-error {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <div class="flash-message" id="flashMessage"></div> <!-- Add this div for displaying flash messages -->
+
+    <h2>Booking Overview</h2>
+
+    <div>
+        <h3>User Details</h3>
+        <p>Name: {{ user_details.name }}</p>
+        <p>Email: {{ user_details.email }}</p>
+    </div>
+
+    <div>
+        <h3>Booking Details</h3>
+        <p>Check-in Date: {{ booking_details.checkin_date }}</p>
+        <p>Check-out Date: {{ booking_details.checkout_date }}</p>
+        <p>Number of Guests: {{ booking_details.num_of_guests }}</p>
+    </div>
+
+    <div>
+        <h3>Selected Rooms</h3>
+        <ul>
+            {% for room in selected_rooms %}
+                <li>{{ room.name }} - {{ room.count }} room(s) - ${{ room.price }} each</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h3>Total Amount</h3>
+        {% set checkin_date = booking_details.checkin_date | str_to_datetime %}
+{% set checkout_date = booking_details.checkout_date | str_to_datetime %}
+
+
+
+        {% set nights = (checkout_date - checkin_date).days %}
+        {% set total_amount_with_nights = total_amount * nights %}
+        <p>Total Amount for {{ nights }} night(s): ${{ total_amount_with_nights }}</p>
+    </div>
+   <form action="{{ url_for('confirm_booking') }}" method="post">
+    <input type="hidden" name="selected_rooms" value="{{ selected_rooms | tojson }}">
+    <input type="hidden" name="total_amount" value="{{ total_amount }}">
+
+    <h3>Payment Method</h3>
+    <label>
+        <input type="radio" name="payment_method" value="cash" required>
+        Pay with Cash
+    </label>
+    <label>
+        <input type="radio" name="payment_method" value="credit_card" required>
+        Pay with Credit Card
+    </label>
+
+    <button type="submit">Confirm Booking</button>
+</form>
+</section>
+
+<script>
+    // Display flash message if available
+    var flashMessage = document.getElementById('flashMessage');
+    var flashContent = '{{ get_flashed_messages() | first }}';
+
+    if (flashContent) {
+        flashMessage.innerHTML = flashContent;
+        flashMessage.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

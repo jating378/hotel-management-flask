@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3em;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 2em;
+            margin-bottom: 2em;
+        }
+
+        h1.booking {
+            font-size: 30px;
+            margin-bottom: 1em;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+        }
+
+        p {
+            margin: 0.5em 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 0.5em;
+        }
+
+        button {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 0.5em;
+            cursor: pointer;
+            margin-top: 1em;
+        }
+        #paymentMethod {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 0.5em;
+            cursor: pointer;
+            margin-top: 1em;
+        }
+
+        .hotel-logo a {
+            text-decoration: none; /* Remove default link underline */
+            color: white;
+        }
+
+        .hotel-logo {
+            position: absolute;
+            top: 15px;
+            left: 70px;
+        }
+
+        .hotel-logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        footer {
+            background-color: rgb(22, 22, 112);
+            color: #fff;
+            text-align: center;
+            padding: 2em 0;
+        }
+
+        .footer-sections {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .footer-section-left {
+            text-align: left;
+        }
+
+        .footer-section-center {
+            text-align: center;
+        }
+
+        .footer-section-right {
+            text-align: right;
+        }
+
+        h3 {
+            color: #f5a623;
+        }
+
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #f5a623;
+        }
+
+        .footer-social ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-social li {
+            margin: 0 10px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: #f5a623;
+        }
+
+        .footer-copyright {
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+
+        .back-to-top-btn {
+            display: none;
+            font-size: 0.8em;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgb(22, 22, 112);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 class="booking">Booking Overview</h1>
+        <div class="hotel-logo">
+            <a href="hotel.html">
+                <img src="./Assets/images/hotel-logo.jpeg" alt="Hotel Logo">
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>User Details</h2>
+        <p><strong>Name:</strong> <span id="overviewName"></span></p>
+        <p><strong>Email:</strong> <span id="overviewEmail"></span></p>
+        <p><strong>Check-in Date:</strong> <span id="overviewCheckInDate"></span></p>
+        <p><strong>Check-out Date:</strong> <span id="overviewCheckOutDate"></span></p>
+        <p><strong>Guests:</strong> <span id="overviewGuests"></span></p>
+        <p><strong>Services:</strong> <span id="overviewServices"></span></p>
+        <p><strong>Total Amount:</strong><span id='overviewTotalAmount'></span></p>
+
+        <h2>Selected Room</h2>
+        <ul id="selectedRoomsList"></ul>
+        <p id="totalServiceAmount"></p>
+        <p id="totalAmount"></p>
+
+        <h2>Payment Method</h2>
+        <select id="paymentMethod">
+            <option value="cash">Cash</option>
+            <option value="card">Card</option>
+        </select>
+
+
+
+        <button onclick="confirmBooking()">Confirm Booking</button>
+        <button onclick="goToHomePage()">Back</button>
+    </div>
+
+     <footer>
+
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Moonlight Manor</p>
+                <p>123 Luxury Street, Heidelberg</p>
+                <p>Phone: +49-123-456-7890</p>
+                <p>Email: MoonlightManorhotel@gmail.com</p>
+            </div>
+
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="hotel.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="mybookings.html">My Bookings</a></li>
+                    <li><a href="room_details.html">Rooms</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h3>Connect With Us</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+                    <li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+                </ul>
+            </div>
+
+
+            <p class="footer-copyright">&copy; 2023 Moonlight Manor. All rights reserved.</p>
+     </footer>
+
+        <button class="back-to-top-btn" onclick="scrollToTop()">Back to Top</button>
+
+
+    <script>
+        // Retrieve user and room details from session storage
+        const userDetails = JSON.parse(sessionStorage.getItem('userDetails'));
+        const selectedRoom = JSON.parse(sessionStorage.getItem('selectedRoom'));
+        const selectedServices = JSON.parse(sessionStorage.getItem('selectedServices'));
+
+        if (userDetails) {
+            // Display user details
+            document.getElementById('overviewName').innerText = `${userDetails.firstName} ${userDetails.lastName}`;
+            document.getElementById('overviewEmail').innerText = userDetails.email;
+            document.getElementById('overviewCheckInDate').innerText = userDetails.checkInDate;
+            document.getElementById('overviewCheckOutDate').innerText = userDetails.checkOutDate;
+            document.getElementById('overviewGuests').innerText = userDetails.guests;
+           
+
+            // Display selected services
+            const servicesListOverview = document.getElementById('overviewServices');
+
+            // Check if services are available
+            if (selectedServices && selectedServices.length > 0) {
+                servicesListOverview.innerHTML = `<strong>Services:</strong> <ul>${selectedServices.map(service => `<li>${service.name} - $${service.amount}</li>`).join('')}</ul>`;
+            } else {
+                servicesListOverview.innerHTML = "<strong></strong> No services selected.";
+            }
+        }
+
+
+
+        // Display selected room details
+        if (selectedRoom) {
+            const selectedRoomsList = document.getElementById('selectedRoomsList');
+            const totalAmount = document.getElementById('totalAmount');
+
+            selectedRoom.forEach(room => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${room.category} - $${room.price} per night`;
+                selectedRoomsList.appendChild(listItem);
+            });
+
+            // Calculate and display total amount including room prices and selected services
+        const roomPrice = selectedRoom.reduce((sum, room) => sum + room.price * userDetails.totalNights, 0);
+        const servicesPrice = selectedServices ? selectedServices.reduce((sum, service) => sum + calculateServicePrice(service), 0) : 0;
+        const totalPrice = roomPrice + servicesPrice;
+
+        totalAmount.innerText = `Total Amount: $${totalPrice}`;
+        totalServiceAmount.innerText = `Total Service Amount: $${servicesPrice}`;
+    }
+
+
+
+
+    function confirmBooking() {
+    const bookingData = JSON.parse(sessionStorage.getItem('bookingData'));
+
+    fetch('http://localhost:8000/bookings/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(bookingData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        return response.json();
+    })
+    .then(data => {
+        const transcation = createTransaction(data.bookingid, document.getElementById('paymentMethod').value);
+        console.log('Booking confirmed:', transcation);
+        alert('Booking confirmed.');
+        window.location.href = '/mybookings.html';
+        // Redirect or update UI as needed
+    })
+    .catch(error => {
+        console.error('Error confirming booking:', error);
+        alert('Error confirming booking.');
+    });
+}
+
+        function goToHomePage() {
+            // Redirect to the desired home page
+            window.location.href = 'booking.html';
+        }
+
+
+        function checkLogin() {
+    const token = localStorage.getItem('token');
+    console.log('Token:', token); // For debugging
+
+    if (!token) {
+        console.log('Redirecting to login...'); // For debugging
+        window.location.href = '/login.html';
+    }
+}
+
+function displayBookingDetails() {
+    const bookingData = JSON.parse(sessionStorage.getItem('bookingData'));
+    if (bookingData) {
+        // Display booking details
+        document.getElementById('overviewCheckInDate').innerText = bookingData.checkin_date;
+        document.getElementById('overviewCheckOutDate').innerText = bookingData.checkout_date;
+        document.getElementById('overviewGuests').innerText = bookingData.guests;
+        document.getElementById('overviewTotalAmount').innerText = bookingData.total_amount;
+        // Add more fields as needed
+
+        // Fetch and display customer details
+        fetchCustomerDetails(bookingData.customerid);
+        fetchServices(bookingData.serviceid);
+        fetchRooms(bookingData.roomid);
+    }
+}
+
+
+function fetchServices(serviceid) {
+    if (serviceid) {
+        fetch(`http://localhost:8000/services/${serviceid}`) // Replace with your actual backend URL
+            .then(response => response.json())
+            .then(service => {
+                document.getElementById('overviewServices').innerText = service.service_name;
+            })
+            .catch(error => console.error('Error fetching services:', error));
+    } else {
+        // If serviceid is undefined or null, display "No service selected"
+        document.getElementById('overviewServices').innerText = "No service selected";
+    }
+}
+
+
+function fetchRooms(roomid){
+    fetch(`http://localhost:8000/rooms/${roomid}`)
+    .then(response => response.json())
+    .then(rooms => {
+        document.getElementById('selectedRoomsList').innerText = rooms.room_type;
+    })
+    .catch(error => console.error('Error fetching rooms:', error));
+
+}
+
+function fetchCustomerDetails(customerId) {
+    fetch(`http://localhost:8000/customers/${customerId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(customer => {
+        // Assuming the customer object has firstName and lastName properties
+        document.getElementById('overviewName').innerText = `${customer.first_name} ${customer.last_name}`;
+        document.getElementById('overviewEmail').innerText = customer.email;
+        // Add more fields as needed
+    })
+    .catch(error => {
+        console.error('Error fetching customer details:', error);
+    });
+}
+
+
+
+
+function createTransaction(bookingId, paymentMethod) {
+    const bookingData= JSON.parse(sessionStorage.getItem('bookingData'));
+    const customerid = sessionStorage.getItem('customerid');
+    const transactionData = {
+        bookingid: bookingId,
+        customerid: customerid, // Assuming you have customerid in bookingData
+        total_amount: bookingData.total_amount, // Implement this function based on your logic
+        payment_type: paymentMethod
+    };
+
+    fetch('http://localhost:8000/transactions/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(transactionData)
+    })
+    .then(response => response.json())
+    .then(transaction => {
+        console.log('Transaction created:', transaction);
+        alert('Booking and transaction successful.');
+        return transaction;
+     // Redirect as needed
+    })
+    .catch(error => {
+        console.error('Error creating transaction:', error);
+        alert('Error creating transaction.');
+    });
+}
+
+window.onload = function() {
+    displayBookingDetails();
+    checkLogin();
+};
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1em;
+        }
+
+        section {
+            padding: 1em;
+            background-color: #fff;
+            margin-bottom: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            margin-bottom: 0.5em;
+        }
+
+        input, select, button {
+            padding: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        #bookingOverview {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>New Booking</h1>
+    </header>
+
+    <div class="container">
+        <section id="new-booking">
+            <h2>New Booking</h2>
+            <form id="bookingForm" onsubmit="submitForm(event)">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="checkInDate">Check-in Date:</label>
+                <input type="date" id="checkInDate" name="checkInDate" required>
+
+                <label for="checkOutDate">Check-out Date:</label>
+                <input type="date" id="checkOutDate" name="checkOutDate" required>
+
+                <label for="roomType">Room Type:</label>
+                <select id="roomType" name="roomType" required>
+                    <option value="standard">Standard</option>
+                    <option value="deluxe">Deluxe</option>
+                    <!-- Add more options as needed -->
+                </select>
+
+                <label for="viewType">View Type:</label>
+                <select id="viewType" name="viewType" required>
+                    <option value="city">City View</option>
+                    <option value="ocean">Ocean View</option>
+                    <!-- Add more options as needed -->
+                </select>
+
+                <label for="floor">Floor:</label>
+                <input type="number" id="floor" name="floor" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <section id="bookingOverview" style="display:none;">
+            <h2>Booking Overview</h2>
+            <p><strong>Name:</strong> <span id="overviewName"></span></p>
+            <p><strong>Email:</strong> <span id="overviewEmail"></span></p>
+            <p><strong>Check-in Date:</strong> <span id="overviewCheckInDate"></span></p>
+            <p><strong>Check-out Date:</strong> <span id="overviewCheckOutDate"></span></p>
+            <p><strong>Room Type:</strong> <span id="overviewRoomType"></span></p>
+            <p><strong>View Type:</strong> <span id="overviewViewType"></span></p>
+            <p><strong>Floor:</strong> <span id="overviewFloor"></span></p>
+            <button onclick="confirmBooking()">Confirm Booking</button>
+        </section>
+    </div>
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+
+            // Get form values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const checkInDate = document.getElementById('checkInDate').value;
+            const checkOutDate = document.getElementById('checkOutDate').value;
+            const roomType = document.getElementById('roomType').value;
+            const viewType = document.getElementById('viewType').value;
+            const floor = document.getElementById('floor').value;
+
+            // Display overview
+            document.getElementById('overviewName').innerText = `${firstName} ${lastName}`;
+            document.getElementById('overviewEmail').innerText = email;
+            document.getElementById('overviewCheckInDate').innerText = checkInDate;
+            document.getElementById('overviewCheckOutDate').innerText = checkOutDate;
+            document.getElementById('overviewRoomType').innerText = roomType;
+            document.getElementById('overviewViewType').innerText = viewType;
+            document.getElementById('overviewFloor').innerText = floor;
+
+            // Show the overview section
+            document.getElementById('new-booking').style.display = 'none';
+            document.getElementById('bookingOverview').style.display = 'block';
+        }
+
+        function confirmBooking() {
+            // You can add logic here to submit the data to your server/database
+            alert('Booking confirmed! Data submitted.');
+        }
+
+
+        function checkLogin() {
+    const token = localStorage.getItem('token');
+    console.log('Token:', token); // For debugging
+
+    if (!token) {
+        console.log('Redirecting to login...'); // For debugging
+        window.location.href = '/login.html';
+    }
+}
+
+window.onload = checkLogin;
+    </script>
+
+
+
+</body>
+</html>

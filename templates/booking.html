@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Booking System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+      }
+
+      header {
+        background-color: rgb(22, 22, 112);
+        color: white;
+        text-align: center;
+        padding: 1em;
+      }
+
+      .hotel-logo a {
+        text-decoration: none; /* Remove default link underline */
+        color: white;
+      }
+
+      .hotel-logo {
+        position: absolute;
+        top: 15px;
+        left: 70px;
+      }
+
+      .hotel-logo img {
+        width: 50px;
+        height: auto;
+      }
+
+      footer {
+        background-color: rgb(22, 22, 112);
+        color: #fff;
+        text-align: center;
+        padding: 2em 0;
+      }
+
+      h3 {
+        color: #f5a623;
+      }
+
+      p {
+        margin: 0.5em 0;
+      }
+
+      strong {
+        color: #f5a623;
+      }
+
+      .footer-links ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #f5a623;
+      }
+
+      .footer-social ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .footer-social li {
+        margin: 0 10px;
+      }
+
+      .footer-social a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1em;
+        transition: color 0.3s;
+      }
+
+      .footer-social a:hover {
+        color: #f5a623;
+      }
+
+      .footer-copyright {
+        margin-top: 20px;
+        font-size: 0.8em;
+      }
+
+      .back-to-top-btn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: rgb(22, 22, 112);
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 1em;
+      }
+
+      h1.booking {
+        font-size: 30px;
+      }
+
+      section {
+        padding: 1em;
+        background-color: #fff;
+        margin-bottom: 1em;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      label {
+        margin-bottom: 0.5em;
+      }
+
+      input,
+      select,
+      button {
+        padding: 0.5em;
+        margin-bottom: 1em;
+      }
+
+      button {
+        background-color: rgb(22, 22, 112);
+        color: white;
+        cursor: pointer;
+      }
+
+      #bookingOverview {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1 class="booking">Booking</h1>
+      <div class="hotel-logo">
+        <a href="hotel.html">
+          <img src="./Assets/images/hotel-logo.jpeg" alt="Hotel Logo" />
+        </a>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="new-booking">
+        <h2>New Booking</h2>
+        <form id="bookingForm" onsubmit="submitForm(event)">
+          <!-- Include other form fields if necessary -->
+          <label for="checkInDate">Check-in Date:</label>
+          <input
+            type="date"
+            id="checkInDate"
+            name="checkInDate"
+            required
+            onchange="setCheckoutMin()"
+          />
+
+          <label for="checkOutDate">Check-out Date:</label>
+          <input type="date" id="checkOutDate" name="checkOutDate" required />
+
+          <label for="guests">Guests:</label>
+          <input type="number" id="guests" name="guests" required />
+
+          <label>Services:</label>
+          <div id="servicesCheckbox">
+            <!-- Services will be loaded here -->
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </div>
+
+    <footer>
+      <div class="footer-contact">
+        <h3>Contact Us</h3>
+        <p>Moonlight Manor</p>
+        <p>123 Luxury Street, Heidelberg</p>
+        <p>Phone: +49-123-456-7890</p>
+        <p>Email: MoonlightManorhotel@gmail.com</p>
+      </div>
+
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+            <li><a href="hotel.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="mybookings.html">My Bookings</a></li>
+            <li><a href="room_details.html">Rooms</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-social">
+        <h3>Connect With Us</h3>
+        <ul>
+          <li>
+            <a href="https://www.facebook.com/" target="_blank">Facebook</a>
+          </li>
+          <li><a href="https://twitter.com/" target="_blank">Twitter</a></li>
+          <li>
+            <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+          </li>
+        </ul>
+      </div>
+
+      <p class="footer-copyright">
+        &copy; 2023 Moonlight Manor. All rights reserved.
+      </p>
+    </footer>
+
+    <button class="back-to-top-btn" onclick="scrollToTop()">Back to Top</button>
+
+    <script>
+
+      function fetchServices() {
+        fetch('http://localhost:8000/services/') // Replace with your actual backend URL
+          .then(response => response.json())
+          .then(services => {
+            displayServices(services);
+          })
+          .catch(error => console.error('Error fetching services:', error));
+      }
+
+      function displayServices(services) {
+        const servicesCheckboxContainer = document.getElementById('servicesCheckbox');
+        servicesCheckboxContainer.innerHTML = ''; // Clear existing content
+
+        services.forEach(service => {
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.id = service.serviceid;
+          checkbox.name = 'services';
+          checkbox.value = service.serviceid;
+          checkbox.dataset.amount = service.price;
+
+          const label = document.createElement('label');
+          label.htmlFor = service.serviceid;
+          label.textContent = `${service.service_name} - €${service.price}`;
+
+          servicesCheckboxContainer.appendChild(checkbox);
+          servicesCheckboxContainer.appendChild(label);
+          servicesCheckboxContainer.appendChild(document.createElement('br'));
+        });
+      }
+
+    function calculateDuration(checkInDate, checkOutDate) {
+    const startDate = new Date(checkInDate);
+    const endDate = new Date(checkOutDate);
+    const duration = (endDate - startDate) / (1000 * 60 * 60 * 24);
+    return duration > 0 ? duration : 0;
+}
+
+function calculateTotalAmount(checkInDate, checkOutDate) {
+    const duration = calculateDuration(checkInDate, checkOutDate);
+    const roomPricePerDay = JSON.parse(sessionStorage.getItem('selectedRoomPrice')); // Assuming this is how you stored it
+
+    let totalAmount = roomPricePerDay * duration;
+
+    // If services are selected, add their cost to the total amount
+    // Assuming you have a way to calculate or retrieve the total service cost
+
+    return totalAmount;
+}
+
+     
+
+
+      function submitForm(event) {
+     event.preventDefault();
+
+    const customerId = sessionStorage.getItem('customerid');
+    const selectedRoomId = sessionStorage.getItem('selectedRoomID');
+    const formData = new FormData(document.getElementById('bookingForm'));
+    const checkInDate = formData.get('checkInDate');
+    const checkOutDate = formData.get('checkOutDate');
+    const guests = formData.get('guests');
+    const selectedService = document.querySelector('input[name="services"]:checked');
+    const serviceId = selectedService ? parseInt(selectedService.value) : null;
+
+    const bookingData = {
+      customerid: parseInt(customerId),
+      roomid: parseInt(selectedRoomId),
+      checkin_date: checkInDate,
+      checkout_date: checkOutDate,
+      guests: parseInt(guests),
+      serviceid: parseInt(serviceId),
+      total_amount: calculateTotalAmount(checkInDate,checkOutDate)// Dummy total amount, replace with actual 
+    };
+  sessionStorage.setItem('bookingData', JSON.stringify(bookingData));
+    window.location.href = '/booking_overview.html';
+}
+
+      window.onload = function() {
+        checkLogin();
+        fetchServices();
+      };
+
+      function checkLogin() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          window.location.href = '/login.html';
+        }
+      }
+    </script>
+  </body>
+</html>

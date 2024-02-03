@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Registration</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: rgb(22, 22, 112);
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color:rgb(22, 22, 112);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-color: rgb(22, 22, 112);
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .logo img {
+            max-width: 40px; /* Adjust the max-width as needed */
+            height: auto;
+            margin-right: 1500px; /* Adjust the margin as needed */
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="./Assets/images/hotel-logo.jpeg" alt="Hotel Logo">
+        </div>
+        <h1>Registration</h1>
+    </header>
+
+    <section>
+        <h2>Create Your Account</h2>
+    
+        <form id="registrationForm">
+            <label for="firstName">First Name:</label>
+            <input type="text"  name="first_name" id="first_name" required>
+            <p id="FirstnameResult"></p>
+            <label for="lastName">Last Name:</label>
+            <input type="text"  name="last_name" id="last_name"  required>
+            <p id="LasttnameResult"></p>
+
+        
+            <label for="email">Email: </label>
+            <input type="text" id="email" name="email" oninput="validateEmail()" required>
+            <p id="emailResult"></p>
+
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" oninput="validatePassword()" required>
+            <p id="passwordResult"></p>
+        
+            <label for="phoneNumber">Phone Number: </label>
+            <input type="text" id="phoneNumber" name="phone" oninput="validatePhoneNumber()" required>
+            <p id="phoneResult"></p>
+
+            <button type="submit">Register Now</button>
+        </form>
+
+        <p>Already have an account? <a href="login.html">Login here</a>.</p>
+
+        <script>
+
+            window.addEventListener('scroll', function () {
+                const footer = document.getElementById('pageFooter');
+                const scrollHeight = window.scrollY + window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+
+                if (scrollHeight >= documentHeight) {
+                    footer.style.display = 'block';
+                } else {
+                    footer.style.display = 'none';
+                }
+            });
+
+            // function validateName() {
+            //     var nameInput = document.getElementById('name');
+            //     var name = nameInput.value;
+
+            //     // Validate name - Only allow letters and spaces
+            //     var namePattern = /^[a-zA-Z\s]+$/;
+
+            //     if (namePattern.test(name)) {
+            //         document.getElementById('nameResult').innerHTML = 'Valid name.';
+            //     } else {
+            //         document.getElementById('nameResult').innerHTML = 'Please enter a valid name (only letters and spaces).';
+            //     }
+            // }
+
+            function validateEmail() {
+                var emailInput = document.getElementById('email');
+                var email = emailInput.value;
+
+                // Validate email using a regular expression pattern
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (emailPattern.test(email)) {
+                    document.getElementById('emailResult').innerHTML = 'Valid email address.';
+                } else {
+                    document.getElementById('emailResult').innerHTML = 'Please enter a valid email address.';
+                }
+            }
+            function validatePassword() {
+                var passwordInput = document.getElementById('password');
+                var password = passwordInput.value;
+
+                // Validate password - At least 8 characters, including at least one uppercase letter, one lowercase letter, and one digit
+                var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+                if (passwordPattern.test(password)) {
+                    document.getElementById('passwordResult').innerHTML = 'Valid password.';
+                } else {
+                    document.getElementById('passwordResult').innerHTML = 'Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one digit.';
+                }
+            }
+            function validatePhoneNumber() {
+                var phoneInput = document.getElementById('phoneNumber');
+                var phoneNumber = phoneInput.value;
+
+                // Validate phone number with country code using a regular expression pattern
+                var phonePattern = /^\+\d+$/;
+
+                if (phonePattern.test(phoneNumber)) {
+                    document.getElementById('phoneResult').innerHTML = 'Valid phone number.';
+                } else {
+                    document.getElementById('phoneResult').innerHTML = 'Please enter a valid phone number with country code (e.g., +1234567890).';
+                }
+            }
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Create a FormData object
+        const formData = new FormData(event.target);
+
+        fetch('http://localhost:8000/customers/', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer YOUR_TOKEN_HERE`, // Replace with actual token if needed
+                // 'Content-Type': 'application/json' is removed because FormData uses 'multipart/form-data'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(() => {
+            alert('Registration successful');
+            window.location.href = 'login.html'; // Redirect to login page or another page as needed
+        })
+        .catch(error => {
+            console.error('Error during registration:', error);
+            alert('Error during registration.');
+        });
+    });
+
+
+        </script>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Moonlight Manor. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

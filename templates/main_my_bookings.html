@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: rgb(22, 22, 112);
+        }
+
+        header {
+            background-color: navy;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Bookings</h1>
+</header>
+
+<section>
+    <h2>Your Bookings</h2>
+    <ul>
+        {% for booking in booking_details_list %}
+            <li>
+                <strong>Booking ID:</strong> {{ booking.booking_id }}<br>
+                <strong>Check-in Date:</strong> {{ booking.checkin_date }}<br>
+                <strong>Check-out Date:</strong> {{ booking.checkout_date }}<br>
+                <strong>Number of Guests:</strong> {{ booking.num_of_guests }}<br>
+                <strong>Total Amount:</strong> {{ booking.total_amount }}<br>
+               <strong>Booked Rooms:</strong>
+                <ul>
+                    {% for room in booking.booked_rooms %}
+                        <li>{{ room.count }} {{ room.name }}(s) - ${{ room.price }} each</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+</section>
+</body>
+</html>

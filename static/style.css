@@ -1,0 +1,197 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, ol {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background-color: navy; /* Darker background color for the header */
+    color: #fff;
+    padding: 20px 10px; /* Increased padding for better spacing */
+    text-align: center;
+}
+.hotel-logo a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 0em; /* Adjusted font size for the logo */
+    margin-left: 20px; /* Added margin for spacing on the left */
+    float: left; /* Floated the logo to the left */
+}
+
+.hotel-logo img {
+    max-width: 100px; /* Set the maximum width for the logo */
+    height: auto;
+}
+
+/* Adjusted styles for the navbar */
+.navbar {
+    background-color: navy;
+    text-align: right; /* Align the navbar to the right */
+    padding: 10px 20px; /* Added padding for better spacing */
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #f5a623;
+}
+
+/* Hotel photo styles */
+.hotel-photo {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.hotel-photo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.hotel-title {
+    font-size: 4em; /* Increased font size */
+    font-weight: 900; /* Use a bolder font */
+    color: #fff; /* Changed color to white */
+    position: absolute; /* Center the text within the .hotel-photo */
+    top: 20%; /* Adjusted top positioning */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centering technique */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Added a subtle text-shadow for a 3D effect */
+}
+.room-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.room {
+    width: 45%;
+    margin-bottom: 20px;
+}
+
+.room img {
+    max-width: 100%;
+    height: auto;
+}
+
+.room-title {
+    font-size: 1.5em;
+    margin-top: 10px;
+    color: #333;
+}
+
+.description {
+    margin-top: 10px;
+}
+
+/* Footer styles */
+footer {
+    background-color: #222; /* Darker background color for the footer */
+    color: #fff;
+    text-align: center;
+    padding: 30px 0; /* Increased padding for better spacing */
+}
+
+.footer-sections {
+    display: flex;
+    justify-content: space-around;
+    align-items: center; /* Align items vertically centered within the flex container */
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.footer-section {
+    text-align: center; /* Center-align text within each section */
+    padding: 0 20px; /* Increased padding for better spacing */
+}
+
+.footer-links a {
+    color: #ddd; /* Lighter text color */
+    text-decoration: none;
+    font-size: 1.1em; /* Slightly increased font size */
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #f5a623;
+}
+
+.footer-social a {
+    color: #ddd; /* Lighter social icons color */
+    text-decoration: none;
+    font-size: 1.8em; /* Slightly increased font size for social icons */
+    margin: 0 15px; /* Increased margin for better spacing */
+    transition: color 0.3s;
+}
+
+.footer-social a:hover {
+    color: #f5a623;
+}
+
+.footer-copyright {
+    margin-top: 30px; /* Increased margin for better spacing */
+    font-size: 0.9em; /* Slightly increased font size */
+}
+
+
+
+/* Back to top button */
+.back-to-top-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+.booking-signin {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.booking-signin a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2em;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: 2px solid #f5a623;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.booking-signin a:hover {
+    background-color: #f5a623;
+    color: #333;
+}
+
+/* Add more styles as needed */

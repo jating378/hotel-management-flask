@@ -1,0 +1,95 @@
+body {
+    font-family: cursive, 'Times New Roman', Times, serif;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(22, 22, 112)
+}
+
+.navbar ul li {
+    float: right;
+}
+
+.navbar ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar ul li a:hover {
+    background-color: #111;
+}
+
+.hotel-photo img {
+    width: 100%;
+    height: auto;
+}
+
+.hotel-title {
+    position: absolute; 
+    top: 30%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    font-family: cursive, 'Times New Roman', Times, serif;
+    color: rgb(0, 0, 0); 
+    font-size: 60px; 
+    text-shadow: 2px 2px 4px rgb(0, 0, 0); 
+}
+
+.room-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.room {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.room-description {
+    text-align: center; 
+    margin-bottom: 40px; 
+}
+
+.room-title {
+    margin-bottom: 10px; 
+}
+.room .description {
+    font-size: 20px;
+    flex: 1;
+    padding: 20px;
+}
+
+.room img {
+    width: 40%;
+    height: auto;
+    margin: 10px;
+}
+
+.left .description {
+    order: 1; 
+}
+
+.right .description {
+    order: -1; 
+}
+
+@media (max-width: 768px) {
+    .room {
+        flex-direction: column;
+    }
+
+    .room img,
+    .room .description {
+        order: 0; 
+        width: 100%;
+    }
+}

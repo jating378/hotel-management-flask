@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+
+    <!-- Add your styles here -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        #sidebar {
+            width: 200px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #fff;
+        }
+
+        #content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <a href="{{ url_for('admin_dashboard') }}">Bookings</a>
+        <a href="{{ url_for('room_availability') }}">Room Availability</a>
+        <a href="{{ url_for('user_dashboard') }}">Users</a>
+    </div>
+
+    <div id="content">
+        <h1>User Dashboard</h1>
+
+       <table>
+    <tr>
+        <th>User ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.full_name }}</td>
+            <td>{{ user.email }}</td>
+            <td class="action-buttons">
+                <a href="{{ url_for('delete_user', user_id=user.id) }}">Delete</a>
+                <a href="{{ url_for('edit_user', user_id=user.id) }}">Edit</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+        <a href="{{ url_for('home') }}">Go Back to Home</a>
+
+    </div>
+</body>
+</html>
