@@ -463,10 +463,6 @@ def overview():
     session['selected_rooms'] = selected_rooms
     session['total_amount'] = total_amount
 
-    # In the overview route
-    app.logger.info(f"Booking Details in Session: {session.get('booking_details')}")
-    app.logger.info(f"Selected Rooms in Session: {session.get('selected_rooms')}")
-    app.logger.info(f"Total Amount in Session: {session.get('total_amount')}")
 
     # Render the 'overview.html' template with the obtained data
     return render_template('mainoverview.html',
@@ -478,7 +474,7 @@ def overview():
                            },
                            selected_rooms=selected_rooms,
                            total_amount=total_amount)
-@app.route('/confirm_booking', methods=['POST'])
+@app.route('/confirm_booking', methods=['GET','POST'])
 @login_required
 def confirm_booking():
     try:
@@ -495,7 +491,7 @@ def confirm_booking():
         selected_rooms = session.get('selected_rooms', [])
 
         # Retrieve total amount from the session
-        total_amount = session.get('total_amount', 0)
+        total_amount = session.get('total_amount_with_nights', 0)  # Retrieve from the session
 
         # Retrieve payment method from the form data
         payment_method = request.form.get('payment_method')
@@ -551,7 +547,7 @@ def confirm_booking():
         session.pop('total_amount', None)
 
         flash('Booking confirmed successfully!', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('home'))
 
     except Exception as e:
         app.logger.error(f"Error confirming booking: {e}")
@@ -651,6 +647,15 @@ def delete_user(user_id):
     flash('User deleted successfully!', 'success')
     return redirect(url_for('admin_dashboard'))
 
+@app.route('/store_total_amount', methods=['POST'])
+def store_total_amount():
+    data = request.json
+    total_amount_with_nights = data.get('totalAmountWithNights')
+
+    # Store the value in the session
+    session['total_amount_with_nights'] = total_amount_with_nights
+
+    return jsonify({'message': 'Data stored in session successfully'})
 
 
 if __name__ == '__main__':

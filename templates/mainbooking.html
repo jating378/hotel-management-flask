@@ -136,55 +136,61 @@
         <a href="{{ url_for('home') }}">Go Back to Home</a>
 
     </section>
-
     <script>
-        function populateUserData() {
-            // Get the user's name and email from the server and populate the fields
-            if (document.getElementById('book_for_self').checked) {
-                // Make an AJAX request to the server to fetch user data
-                // Replace the URL and method with your actual endpoint and method
-                fetch('/get_user_data', {
-                    method: 'GET'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('guest_name').value = data.full_name;
-                    document.getElementById('email').value = data.email;
-                })
-                .catch(error => console.error('Error fetching user data:', error));
-            } else {
-                // Clear the fields if the checkbox is not checked
-                document.getElementById('guest_name').value = '';
-                document.getElementById('email').value = '';
-            }
+    function populateUserData() {
+        // Get the user's name and email from the server and populate the fields
+        if (document.getElementById('book_for_self').checked) {
+            // Make an AJAX request to the server to fetch user data
+            // Replace the URL and method with your actual endpoint and method
+            fetch('/get_user_data', {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('guest_name').value = data.full_name;
+                document.getElementById('email').value = data.email;
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+        } else {
+            // Clear the fields if the checkbox is not checked
+            document.getElementById('guest_name').value = '';
+            document.getElementById('email').value = '';
         }
+    }
 
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get references to the check-in and check-out date input elements
+        var checkinDateInput = document.getElementById('checkin_date');
+        var checkoutDateInput = document.getElementById('checkout_date');
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get references to the check-in and check-out date input elements
-            var checkinDateInput = document.getElementById('checkin_date');
-            var checkoutDateInput = document.getElementById('checkout_date');
+        // Add event listener for changes in the check-in date
+        checkinDateInput.addEventListener('change', function () {
+            // Enable the checkout date input
+            checkoutDateInput.removeAttribute('disabled');
 
-            // Add event listener for changes in the check-in date
-            checkinDateInput.addEventListener('change', function () {
-                // Set the min attribute of the checkout date to the selected check-in date
-                checkoutDateInput.min = checkinDateInput.value;
+            // Set the min attribute of the checkout date to the selected check-in date
+            var selectedDate = new Date(checkinDateInput.value);
+            var minDate = new Date(selectedDate);
+            minDate.setDate(selectedDate.getDate() + 1); // Set minDate to the next day
+            checkoutDateInput.min = minDate.toISOString().split('T')[0];
 
-                // Reset the value of checkout date if it is before the new min date
-                if (checkoutDateInput.value < checkinDateInput.value) {
-                    checkoutDateInput.value = checkinDateInput.value;
-                }
-            });
-
-            // Add event listener for changes in the checkout date
-            checkoutDateInput.addEventListener('change', function () {
-                // Ensure that the checkout date is not before the check-in date
-                if (checkoutDateInput.value < checkinDateInput.value) {
-                    checkoutDateInput.value = checkinDateInput.value;
-                }
-            });
+            // Reset the value of checkout date if it is before the new min date
+            if (checkoutDateInput.value < checkinDateInput.value) {
+                checkoutDateInput.value = checkinDateInput.value;
+            }
         });
-    </script>
+
+        // Add event listener for changes in the checkout date
+        checkoutDateInput.addEventListener('change', function () {
+            // Ensure that the checkout date is not before the check-in date
+            if (checkoutDateInput.value < checkinDateInput.value) {
+                checkoutDateInput.value = checkinDateInput.value;
+            }
+        });
+    });
+</script>
+
+
 <a href="{{ url_for('home') }}">Go Back to Home</a>
 
 

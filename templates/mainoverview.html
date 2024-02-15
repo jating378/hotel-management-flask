@@ -118,7 +118,9 @@
         {% set nights = (checkout_date - checkin_date).days %}
         {% set total_amount_with_nights = total_amount * nights %}
         <p>Total Amount for {{ nights }} night(s): ${{ total_amount_with_nights }}</p>
+        <div id="totalAmountWithNights" data-total="{{ total_amount_with_nights }}"></div>
     </div>
+
    <form action="{{ url_for('confirm_booking') }}" method="post">
     <input type="hidden" name="selected_rooms" value="{{ selected_rooms | tojson }}">
     <input type="hidden" name="total_amount" value="{{ total_amount }}">
@@ -146,6 +148,31 @@
         flashMessage.innerHTML = flashContent;
         flashMessage.style.display = 'block';
     }
+    document.addEventListener('DOMContentLoaded', function () {
+    // Get the totalAmountWithNights value from the HTML attribute
+    var totalAmountWithNights = document.getElementById('totalAmountWithNights').getAttribute('data-total');
+
+    // Make an AJAX request to the server to store the value in the session
+    fetch('/store_total_amount', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Add other headers as needed
+        },
+        body: JSON.stringify({'totalAmountWithNights': totalAmountWithNights}),
+        // Add other options as needed
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Process the JSON data from the server if needed
+        console.log('Server response:', data);
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+
+
+
 </script>
 
 </body>
